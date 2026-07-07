@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>重生之千万要保重</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#F5F0E6;--bg2:#FFFDF5;--tx:#3E2723;--tx2:#6D4C41;
+  --gold:#B8860B;--gold2:#DAA520;--red:#B71C1C;--grn:#2E7D32;
+  --blu:#1565C0;--bdr:#D7CFC0;--shd:rgba(62,39,35,.08);
+  --btn:#5D4037;--btn2:#4E342E;--btx:#FFF8E1;--purple:#7B1FA2;
+}
+body{font-family:'Noto Sans SC',system-ui,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;display:flex;flex-direction:column;align-items:center;line-height:1.7}
+#gc{width:100%;max-width:720px;min-height:100vh;display:flex;flex-direction:column;padding:0 16px}
+#sb{position:sticky;top:0;z-index:100;background:linear-gradient(180deg,var(--bg) 85%,transparent);padding:14px 0 20px}
+#gt{font-family:'Noto Serif SC',serif;font-size:1.5em;font-weight:900;text-align:center;letter-spacing:.08em;margin-bottom:8px}
+#gt em{color:var(--gold);font-style:normal}
+.sg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.sb2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+.sx{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;padding:6px 10px;text-align:center;box-shadow:0 1px 3px var(--shd)}
+.sl{font-size:.7em;color:var(--tx2)}.sv{font-family:'Noto Serif SC',serif;font-size:1.1em;font-weight:700}
+.sv.money{color:var(--gold)}.sv.money.neg{color:var(--red)}.ss{font-size:.68em;color:var(--tx2);margin-top:1px}
+#gl{flex:1;padding:6px 0 60px;transition:padding-bottom .2s ease}
+.le{opacity:0;transform:translateY(10px);animation:fiu .35s ease forwards;margin-bottom:4px}
+@keyframes fiu{to{opacity:1;transform:translateY(0)}}
+.ly{font-family:'Noto Serif SC',serif;font-size:1.2em;font-weight:700;margin:20px 0 6px;padding:10px 14px;background:linear-gradient(135deg,var(--bg2),#F0E8D8);border-left:4px solid var(--gold);border-radius:0 8px 8px 0;box-shadow:0 2px 6px var(--shd)}
+.ly:first-child{margin-top:0}
+.lv{padding:8px 14px;margin:5px 0;background:var(--bg2);border-radius:8px;border-left:3px solid var(--bdr);box-shadow:0 1px 2px var(--shd);font-size:.9em}
+.lv.gain{border-left-color:var(--grn)}.lv.loss{border-left-color:var(--red)}
+.lv.info{border-left-color:var(--blu)}.lv.warn{border-left-color:var(--gold)}
+.lv.special{border-left-color:var(--purple);background:linear-gradient(135deg,var(--bg2),#F3E5F5)}
+.lv.life{border-left-color:#E91E63;background:linear-gradient(135deg,var(--bg2),#FCE4EC)}
+.mp{font-weight:700;font-family:'Noto Serif SC',serif}.mp.pos{color:var(--grn)}.mp.neg{color:var(--red)}
+.ls{padding:12px 16px;margin:8px 0;background:linear-gradient(135deg,#FFF8E1,#FFF3E0);border:1px solid var(--gold2);border-radius:10px;font-size:.88em}
+#ca{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:720px;background:linear-gradient(0deg,var(--bg) 80%,transparent);padding:28px 16px 16px;z-index:100}
+.cp{font-size:.85em;color:var(--tx2);text-align:center;margin-bottom:8px}
+.cb{display:flex;flex-direction:column;gap:6px}
+.ct{width:100%;padding:11px 16px;font-family:'Noto Sans SC',sans-serif;font-size:.92em;font-weight:500;color:var(--btx);background:var(--btn);border:none;border-radius:8px;cursor:pointer;transition:all .2s;text-align:left;line-height:1.5}
+.ct:hover{background:var(--btn2);transform:translateY(-1px);box-shadow:0 3px 8px rgba(62,39,35,.2)}
+.ct:active{transform:translateY(0)}
+.ct.risky{background:linear-gradient(135deg,#4E342E,#6D4C41);border:1px solid var(--gold)}
+.ct .bs{font-size:.76em;opacity:.7;display:block;margin-top:1px}
+#is,#es{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:85vh;text-align:center;padding:40px 20px}
+#is h1{font-family:'Noto Serif SC',serif;font-size:2.1em;font-weight:900;margin-bottom:6px;letter-spacing:.1em}
+#is h1 em{color:var(--gold);font-style:normal}
+#is .su{color:var(--tx2);font-size:.92em;margin-bottom:28px}
+#is .id{font-size:.86em;color:var(--tx2);max-width:440px;line-height:1.9;margin-bottom:32px}
+.stb{font-family:'Noto Serif SC',serif;font-size:1.05em;font-weight:700;padding:13px 44px;background:var(--btn);color:var(--btx);border:2px solid var(--gold);border-radius:12px;cursor:pointer;transition:all .3s;letter-spacing:.08em}
+.stb:hover{background:var(--btn2);transform:scale(1.04);box-shadow:0 4px 16px rgba(62,39,35,.25)}
+.vc{margin-top:32px;font-size:.76em;color:var(--tx2);opacity:.6}
+.reward-note{margin-top:16px;padding:10px 18px;background:#FFF8E1;border:1px dashed var(--gold);border-radius:8px;font-size:.82em;color:var(--gold);max-width:420px;line-height:1.7}
+.ei{font-size:3.2em;margin-bottom:14px}
+.et{font-family:'Noto Serif SC',serif;font-size:1.7em;font-weight:900;margin-bottom:10px}
+.ed{font-size:.9em;color:var(--tx2);max-width:440px;line-height:1.9;margin-bottom:6px}
+.est{margin:20px 0;padding:14px 20px;background:var(--bg2);border:1px solid var(--bdr);border-radius:10px;font-size:.85em;line-height:2;min-width:280px;max-width:420px;width:100%}
+.est div{display:flex;justify-content:space-between;gap:20px}
+.tb{display:inline-block;padding:2px 8px;font-size:.76em;border-radius:16px;font-weight:500;margin:1px 3px}
+.tb.p{background:#E8F5E9;color:var(--grn)}.tb.n{background:#FFEBEE;color:var(--red)}.tb.u{background:#FFF3E0;color:#E65100}
+/* ACHIEVEMENTS */
+.ach-section{margin:16px 0;width:100%;max-width:420px}
+.ach-title{font-family:'Noto Serif SC',serif;font-size:1em;font-weight:700;margin-bottom:8px;text-align:center}
+.ach-grid{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.ach{padding:4px 10px;border-radius:16px;font-size:.78em;font-weight:500;border:1px solid var(--bdr);background:var(--bg2);color:var(--tx2);opacity:.4}
+.ach.earned{opacity:1;background:#FFF8E1;border-color:var(--gold);color:var(--gold)}
+.ach.earned::before{content:'✅ '}
+/* VERIFICATION */
+.vcode{margin:12px 0;padding:12px 18px;background:#F3E5F5;border:2px solid var(--purple);border-radius:10px;font-family:monospace;font-size:.9em;letter-spacing:.1em;color:var(--purple);text-align:center;word-break:break-all;user-select:all;cursor:pointer}
+.vcode-label{font-size:.72em;color:var(--tx2);margin-bottom:4px;font-family:'Noto Sans SC',sans-serif}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px}
+@media(max-width:480px){#gt{font-size:1.2em}.sv{font-size:.95em}.sg{grid-template-columns:1fr 1fr}.ly{font-size:1em}#is h1{font-size:1.6em}}
+.hidden{display:none!important}
+/* GUIDE */
+.guide-toggle{margin:20px 0 8px;padding:10px 22px;background:var(--bg2);border:1px solid var(--bdr);border-radius:10px;cursor:pointer;font-size:.88em;color:var(--tx2);transition:all .2s;user-select:none;display:inline-flex;align-items:center;gap:6px}
+.guide-toggle:hover{background:#F0E8D8;border-color:var(--gold)}
+.guide-toggle .arrow{display:inline-block;transition:transform .25s;font-size:.7em}
+.guide-toggle.open .arrow{transform:rotate(90deg)}
+.guide-box{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease;opacity:0;width:100%;max-width:440px}
+.guide-box.open{max-height:600px;opacity:1}
+.guide-inner{padding:16px 20px;margin:6px 0 12px;background:var(--bg2);border:1px solid var(--bdr);border-radius:10px;font-size:.84em;color:var(--tx2);text-align:left;line-height:2}
+.guide-inner p{margin-bottom:10px}
+.guide-inner p:last-child{margin-bottom:0}
+.guide-inner .gl{color:var(--tx);font-weight:500}
+.guide-inner .gh{color:var(--gold);font-weight:700;font-size:.92em;margin-bottom:2px}
+</style>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-database-compat.js"></script>
+</head>
+<body>
+<div id="gc">
+<div id="is">
+  <h1>重生之<em>千万</em>要保重</h1>
+  <div class="su">一款文字肉鸽人生模拟游戏 · 三十年篇</div>
+  <div class="id">
+    你刚踏入社会，手握二十万元积蓄。<br>
+    命运将你随机抛入一个行业，给你一份薪水。<br>
+    三十年时间，能否攒到一千万？<br><br>
+    工作、投资、婚恋、创业……<br>
+    每一次选择，都可能改写你的人生轨迹。<br><br>
+    <span style="color:var(--gold)">千万要保重。</span>
+  </div>
+  <div class="guide-toggle" id="guideBtn" onclick="toggleGuide()"><span class="arrow">▶</span> 📖 游戏说明书（点击查看）</div>
+  <div class="guide-box" id="guideBox">
+    <div class="guide-inner">
+      <p><span class="gh">⚠️ 声明</span><br>本游戏纯属虚构，如有雷同纯属巧合。</p>
+      <p><span class="gl">① 新手指南</span><br>如果对如何游玩感到困惑，请不必担心——有的时候重开才是最重要的，这把不行就换下一把。可能有从谷底到山巅，也可能有从天堂到阴间。运气在游戏中很重要！</p>
+      <p><span class="gl">② 推荐游戏</span><br>如果对更多肉鸽类型游戏感兴趣，推荐游玩《以撒的结合》《哈迪斯2》《暗黑地牢》等经典游戏。</p>
+      <p><span class="gl">③ 推荐博主</span><br>推荐观看B站博主：<b>@戒社</b> <b>@勇哥餐饮</b>，正确的消费观是最重要的。</p>
+      <p><span class="gl">④ 最后的话</span><br>千万不是目标，<b style="color:var(--gold)">保重才是目标</b>。<br>祝大家身体健康，家人和睦，好友多多，财运亨通。🍀</p>
+    </div>
+  </div>
+  <button class="stb" onclick="startGame()">开始人生</button>
+  <div class="reward-note">
+    🎁 最终通关千万结局的玩家抽两位v你50<br>
+    在不同档收集全成就的玩家抽两位请奶茶<br>
+    请于2026.7.10及以前凭截图凭据找作者兑换
+  </div>
+  <div class="vc">🌐 访问 <span id="vc0">0</span> 次 · 🎮 游玩 <span id="pc0">0</span> 次</div>
+</div>
+<div id="gs" class="hidden">
+  <div id="sb">
+    <div id="gt">重生之<em>千万</em>要保重</div>
+    <div class="sg">
+      <div class="sx"><div class="sl">年份</div><div class="sv" id="sY">第1年</div><div class="ss" id="sA"></div></div>
+      <div class="sx"><div class="sl">总资产</div><div class="sv money" id="sM">¥200,000</div><div class="ss" id="sI"></div></div>
+      <div class="sx"><div class="sl">年薪</div><div class="sv" id="sS">-</div><div class="ss" id="sX"></div></div>
+    </div>
+    <div class="sb2">
+      <div class="sx"><div class="sl">❤️ 健康</div><div class="ss" id="sH">良好</div></div>
+      <div class="sx"><div class="sl">👥 家庭</div><div class="ss" id="sF">单身</div></div>
+    </div>
+  </div>
+  <div id="gl"></div>
+  <div id="ca" class="hidden"><div class="cp" id="cP"></div><div class="cb" id="cB"></div></div>
+</div>
+<div id="es" class="hidden"></div>
+</div>
+<script>
+/* ═══════════════ ANTI-CHEAT ═══════════════ */
+const SESSION=crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2);
+let _fp=[];// fingerprint: records every choice
+function fpAdd(v){_fp.push(v)}
+function genCode(){
+  // Build verification string from game state + choices
+  const raw=[
+    SESSION.slice(0,8),
+    G.year,
+    Math.floor(G.money/100),
+    G.totalIn>0?Math.floor(Math.log10(G.totalIn)):0,
+    G.raiseN,G.sickN,G.toughOut,
+    G.married?1:0,G.kids,G.diploma,
+    G.isEntrep?1:0,
+    _fp.length,
+    // hash of choices
+    _fp.reduce((a,b)=>((a<<5)-a+b)|0,0)>>>0
+  ].join('-');
+  // Simple hash to make it look like a verification code
+  let h=0;for(let i=0;i<raw.length;i++){h=((h<<5)-h)+raw.charCodeAt(i);h|=0;}
+  const code=(h>>>0).toString(16).toUpperCase().padStart(8,'0');
+  const prefix=G.money>=10000000?'W':'G';
+  const achCount=Object.values(getAch()).filter(Boolean).length;
+  return `${prefix}${code}-${SESSION.slice(0,4).toUpperCase()}-Y${G.year}A${achCount}`;
+}
+// Protect money from console edits
+let _money=200000;
+const _moneyProxy={
+  get money(){return _money},
+  set money(v){
+    // Track legitimate changes via chg() only
+    if(!_chgLock){_fp.push(99);/* flag tampering */}
+    _money=v;
+  }
+};
+let _chgLock=false;
+
+/* ═══════════════ DATA ═══════════════ */
+const IND=[
+  {n:'餐饮',i:'🍜',e:['食材价格飙升','外卖平台抽成翻倍','食品安全风波','某道菜成网红爆款','消费降级客单价下降','连锁加盟机会','深夜食堂走红','预制菜争议','美食节大卖','供应商跑路'],canStartup:true},
+  {n:'制造业',i:'🏭',e:['原材料暴涨','海外大单涌入','环保政策趋严','自动化改造成功','供应链中断','新工艺降本增效','客户压价严重','政府智造补贴','产线扩建完成','质量事故赔偿'],canStartup:true},
+  {n:'农业',i:'🌾',e:['猪肉价格暴涨','粮食补贴提高','暴雨洪涝颗粒无收','直播卖农产品爆火','农产品滞销','有机农业风口','禽流感疫情','农业科技突破','土地流转红利','化肥价格疯涨'],canStartup:true},
+  {n:'互联网',i:'💻',e:['大厂裁员波及','AI赛道融资热','流量红利消失','新风口催生独角兽','反垄断监管加码','出海业务爆发','996争议','开源项目走红','数据安全法收紧','元宇宙浪潮'],canStartup:true},
+  {n:'国企',i:'🏛️',e:['国企改革精简编制','绩效考核制度变革','年终奖超预期发放','干部竞聘上岗','薪酬市场化改革','混改引入战略投资','央企合并重组','基层减负','廉政巡查期','公积金比例上调'],canStartup:false},
+  {n:'媒体娱乐',i:'🎬',e:['爆款内容出圈','行业监管限薪令','广告市场断崖下跌','短视频赛道红利','版权纠纷巨额赔偿','综艺选秀被叫停','影视寒冬裁员','虚拟偶像兴起','知识付费火爆','直播带货翻车'],canStartup:true},
+  {n:'外企',i:'🌍',e:['总部战略性裁员','汇率波动薪资缩水','本土化战略加速','海外轮岗晋升','竞业协议到期','全球业务缩减','亚太区扩张','外企税优取消','跨国并购机会','远程办公政策'],canStartup:true},
+  {n:'高校',i:'📚',e:['重大科研经费到账','论文登顶刊','教学评估不达标','横向课题丰收','学术不端调查','职称评审通过','招生名额扩大','青年教师补贴','学科评估降级','国际合作项目'],canStartup:true},
+  {n:'金融',i:'💰',e:['牛市佣金翻倍','监管风暴降薪潮','年终奖创新高','P2P暴雷波及','银行数字化转型','基金发行火爆','债券违约','保险业务扩张','金融科技替代','利率政策调整'],canStartup:true},
+  {n:'医疗健康',i:'🏥',e:['医保改革带量采购','新药获批上市','医患纠纷赔偿','三甲扩招','疫情防控','互联网医疗爆发','药企集采降价','医疗器械突破','规培改革','健康管理兴起'],canStartup:true},
+  {n:'教育培训',i:'✏️',e:['双减政策重创','在线教育逆势增长','招生季火爆','竞争对手跑路','口碑裂变传播','素质教育转型','考研经济暴涨','AI教育兴起','教培暴利终结','职教政策利好'],canStartup:true},
+  {n:'物流运输',i:'🚛',e:['油价连涨','双十一爆仓','无人驾驶试点','冷链物流暴增','物流园大火','跨境电商物流爆发','即时配送竞争','仓储自动化','运价跌至谷底','新能源车队替换'],canStartup:true},
+  {n:'房地产',i:'🏗️',e:['楼市限购松绑','房价断崖下跌','烂尾楼维权','保障房政策','土地拍卖遇冷','存量房时代','学区房政策变化','商业地产回暖','城中村改造','物业费涨价潮'],canStartup:true},
+  {n:'新能源',i:'⚡',e:['碳中和政策红利','电池原料暴涨','补贴退坡','储能赛道爆发','光伏产能过剩','充电桩建设潮','技术路线之争','出口订单激增','行业内卷降价','氢能源突破'],canStartup:true},
+];
+
+// Salary: skewed toward lower end, very hard to get high salaries
+const SAL=[
+  {a:80000,w:7},{a:100000,w:7},{a:120000,w:7},{a:140000,w:7},
+  {a:160000,w:18},{a:200000,w:18},{a:250000,w:16},{a:300000,w:14},
+  {a:500000,w:4},{a:1000000,w:1.5},{a:2000000,w:.4},{a:5000000,w:.1},
+];
+
+const TRAITS=[
+  {n:'天生乐观',i:'😊',d:'负面事件概率降低10%',t:'p',e:'optimist'},
+  {n:'谨小慎微',i:'🔍',d:'风险降低但收益也降低',t:'u',e:'cautious'},
+  {n:'冒险基因',i:'🎲',d:'收益与风险都放大',t:'u',e:'adventurer'},
+  {n:'人脉达人',i:'🤝',d:'社交事件更有利',t:'p',e:'connected'},
+  {n:'体弱多病',i:'🤒',d:'生病概率提高',t:'n',e:'sickly'},
+  {n:'精打细算',i:'🧮',d:'生活费减少15%',t:'p',e:'frugal'},
+  {n:'财运亨通',i:'🍀',d:'彩票和股票略有加成',t:'p',e:'lucky'},
+  {n:'社恐体质',i:'🫠',d:'社交事件减少但专注力强',t:'u',e:'introvert'},
+  {n:'天赋异禀',i:'⭐',d:'加薪概率提高',t:'p',e:'talented'},
+  {n:'佛系青年',i:'🧘',d:'黑天鹅影响减半',t:'p',e:'zen'},
+];
+
+const PHASES=['初入社会','站稳脚跟','而立之年','中流砥柱','事业巅峰','知天命'];
+function phase(y){return y<=5?0:y<=10?1:y<=15?2:y<=20?3:y<=25?4:5}
+function phaseName(y){return PHASES[phase(y)]}
+function liveCost(y){
+  let c=[60000,70000,85000,95000,105000,115000][phase(y)];
+  if(G.trait?.e==='frugal')c=Math.floor(c*.85);
+  if(G.married)c+=25000;
+  if(G.kids>0)c+=G.kids*28000;
+  if(G.hasCar)c+=15000;
+  return c;
+}
+
+/* ═══════════════ ACHIEVEMENTS ═══════════════ */
+const ACH_DEFS=[
+  {id:'millionaire',n:'💰 千万富翁',d:'最终资产达到1000万'},
+  {id:'legend',n:'🏆 商业传奇',d:'最终资产达到5000万'},
+  {id:'phd',n:'🎓 学无止境',d:'修读到博士学位'},
+  {id:'solo',n:'🌟 独立人生',d:'三十年保持单身'},
+  {id:'family',n:'🏠 家庭美满',d:'结婚且育有子女，婚姻稳定'},
+  {id:'entrepreneur',n:'🚀 创业先锋',d:'创业坚持5年以上'},
+  {id:'stockpro',n:'📈 股市高手',d:'股票累计盈利超过100万'},
+  {id:'jackpot',n:'🎰 幸运之星',d:'彩票中过大奖（100万+）'},
+  {id:'healthy',n:'❤️ 健康人生',d:'从未硬扛过疾病'},
+  {id:'property',n:'🏡 有房有车',d:'同时拥有房和车'},
+  {id:'hopper',n:'🔄 跳槽达人',d:'换过5次以上工作'},
+  {id:'hustler',n:'🌙 副业之王',d:'做过5次以上副业'},
+  {id:'loyal',n:'🏢 行业深耕',d:'在同一行业坚守10年以上'},
+  {id:'traveler',n:'✈️ 行走的力量',d:'旅行过5次以上'},
+  {id:'petlover',n:'🐾 毛孩子家长',d:'领养过宠物'},
+  {id:'comeback',n:'💪 绝地反击',d:'从负资产恢复到正资产'},
+  {id:'survivor',n:'🎗️ 三十而已',d:'完成三十年人生旅程'},
+  {id:'scholar',n:'📚 学历达人',d:'获得硕士或以上学历'},
+  {id:'philanthropist',n:'🎗️ 慈善之心',d:'捐过3次以上'},
+  {id:'frugal_win',n:'🧮 勤俭致富',d:'带"精打细算"特质达成千万'},
+];
+
+function getAch(){
+  const a={};
+  a.millionaire=G.money>=10000000;
+  a.legend=G.money>=50000000;
+  a.phd=G.diploma>=2;
+  a.solo=!G.married&&!G.hasPartner&&!G.everMarried;
+  a.family=G.married&&G.kids>0&&!G.divorced;
+  a.entrepreneur=G.eMaxYears>=5;
+  a.stockpro=G.stockP>=1000000;
+  a.jackpot=G.lotteryBig;
+  a.healthy=G.toughOut===0&&G.year>=30;
+  a.property=G.hasHouse&&G.hasCar;
+  a.hopper=G.jobHops>=5;
+  a.hustler=G.sideHustleN>=5;
+  a.loyal=G.longestIndustry>=10;
+  a.traveler=G.travelN>=5;
+  a.petlover=G.hasPet;
+  a.comeback=G.hadNegative&&G.money>0;
+  a.survivor=G.year>=30&&!G.gameOver;
+  a.scholar=G.diploma>=1;
+  a.philanthropist=G.charityN>=3;
+  a.frugal_win=G.trait?.e==='frugal'&&G.money>=10000000;
+  return a;
+}
+
+/* ═══════════════ STATE ═══════════════ */
+let G={};
+function initS(){
+  _money=200000;_fp=[];
+  G={
+    get money(){return _money},
+    set money(v){_chgLock=true;_money=v;_chgLock=false;},
+    year:1,industry:null,idata:null,salary:0,
+    healthIssues:0,toughOut:0,hasHouse:false,mortgage:0,
+    isEntrep:false,eYears:0,eMaxYears:0,eInd:null,eBankrupt:30,
+    stocks:{inv:0,val:0,own:false},
+    unemployed:false,unempNext:false,
+    trait:null,buffs:[],
+    raiseN:0,totalIn:0,totalOut:0,lotteryW:0,lotteryBig:false,
+    stockP:0,sickN:0,peak:200000,gameOver:false,ending:null,
+    hasPartner:false,partnerYear:0,married:false,marriedYear:0,
+    everMarried:false,divorced:false,
+    kids:0,kidYears:[],onLeave:false,
+    hasCar:false,hasPet:false,petType:null,
+    friendLoan:0,friendLY:0,
+    diploma:0,reputation:50,mentalHealth:80,
+    totalYears:0,jobHops:0,sideHustleN:0,
+    travelN:0,charityN:0,
+    currentIndYears:0,longestIndustry:0,lastIndustry:'',
+    hadNegative:false,
+    sideBiz:false,
+  };
+}
+
+/* ═══════════════ UTILS ═══════════════ */
+const R=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+const C=p=>Math.random()*100<p;
+const P=a=>a[Math.floor(Math.random()*a.length)];
+function WP(items){
+  const t=items.reduce((s,i)=>s+(i.w||1),0);let r=Math.random()*t;
+  for(const i of items){r-=(i.w||1);if(r<=0)return i;}return items[items.length-1];
+}
+function fmt(n){
+  const a=Math.abs(n);const s=n<0?'-':'';
+  if(a>=100000000)return s+(a/100000000).toFixed(2)+'亿';
+  if(a>=10000)return s+(a/10000).toFixed(a>=100000?1:2)+'万';
+  return s+a.toLocaleString('zh-CN');
+}
+function fy(n){return'¥'+fmt(n)}
+function ms(n){const c=n>=0?'pos':'neg';const sg=n>=0?'+':'';return`<span class="mp ${c}">${sg}${fy(n)}</span>`}
+const sl=t=>new Promise(r=>setTimeout(r,t));
+const hb=n=>G.buffs.some(b=>b.e===n);
+const rb=n=>{G.buffs=G.buffs.filter(b=>b.e!==n)};
+const ht=n=>G.trait?.e===n;
+
+function chg(amt){
+  _chgLock=true;_money+=amt;_chgLock=false;
+  if(amt>0)G.totalIn+=amt;if(amt<0)G.totalOut+=Math.abs(amt);
+  if(_money>G.peak)G.peak=_money;
+  if(_money<0)G.hadNegative=true;
+  upS();
+}
+
+/* ═══════════════ UI ═══════════════ */
+function upS(){
+  document.getElementById('sY').textContent=`第 ${G.year} 年`;
+  document.getElementById('sA').textContent=phaseName(G.year);
+  const me=document.getElementById('sM');
+  me.textContent=fy(G.money);me.classList.toggle('neg',G.money<0);
+  let ind=G.isEntrep?`创业：${G.eInd}`:(G.unemployed?'待业中':(G.idata?G.idata.i+' '+G.industry:'-'));
+  document.getElementById('sI').textContent=ind;
+  document.getElementById('sS').textContent=G.isEntrep?'经营中':(G.unemployed||G.onLeave?'无收入':fy(G.salary));
+  let st=G.isEntrep?'创业中':(G.onLeave?'育儿假中':(G.unemployed?'待业':'在职'));
+  document.getElementById('sX').textContent=st;
+  let hh=G.mentalHealth>=70?(G.toughOut===0?'良好':'亚健康'):(G.mentalHealth>=40?'较差':'很差');
+  if(G.toughOut>=2)hh='⚠️'+hh;
+  document.getElementById('sH').textContent=hh;
+  let ff=G.married?'已婚':(G.hasPartner?'恋爱中':'单身');
+  if(G.kids>0)ff+=` · ${G.kids}个孩子`;
+  document.getElementById('sF').textContent=ff;
+}
+
+let LQ=[],isL=false;
+async function log(html,type=''){return new Promise(resolve=>{LQ.push({html,type,resolve});if(!isL)pLQ();})}
+async function pLQ(){
+  isL=true;while(LQ.length){const{html,type,resolve}=LQ.shift();const d=document.createElement('div');
+  if(type==='year')d.className='le ly';else if(type==='summary')d.className='le ls';
+  else d.className='le lv'+(type?' '+type:'');
+  d.innerHTML=html;document.getElementById('gl').appendChild(d);
+  await sl(50);d.scrollIntoView({behavior:'smooth',block:'end'});await sl(130);resolve();}isL=false;
+}
+
+function ask(prompt,opts){
+  return new Promise(resolve=>{
+    const a=document.getElementById('ca'),p=document.getElementById('cP'),b=document.getElementById('cB');
+    const gl=document.getElementById('gl');
+    p.textContent=prompt;b.innerHTML='';
+    opts.forEach((o,i)=>{
+      const bt=document.createElement('button');
+      bt.className='ct'+(o.risky?' risky':'');
+      bt.innerHTML=o.l+(o.s?`<span class="bs">${o.s}</span>`:'');
+      bt.onclick=()=>{
+        a.classList.add('hidden');
+        gl.style.paddingBottom='60px';
+        fpAdd(i);resolve(i);
+      };
+      b.appendChild(bt);
+    });
+    a.classList.remove('hidden');
+    // Wait one frame so the browser lays out the choice area, then measure + adjust
+    requestAnimationFrame(()=>{
+      const caH=a.offsetHeight;
+      gl.style.paddingBottom=(caH+16)+'px';
+      // Scroll so the last log entry sits above the choice bar
+      requestAnimationFrame(()=>{
+        const entries=gl.querySelectorAll('.le');
+        if(entries.length){entries[entries.length-1].scrollIntoView({behavior:'smooth',block:'center'});}
+      });
+    });
+  });
+}
+
+/* ═══════════════ FIREBASE + COUNTERS ═══════════════ */
+/*
+ * ╔══════════════════════════════════════════════════════════╗
+ * ║           🔥 FIREBASE 配置教程（必读）                    ║
+ * ╠══════════════════════════════════════════════════════════╣
+ * ║ 1. 打开 https://console.firebase.google.com             ║
+ * ║ 2. 点击「创建项目」→ 取名 → 一路下一步                    ║
+ * ║ 3. 左侧菜单「构建」→「Realtime Database」→「创建数据库」  ║
+ * ║    → 选地区 → 以「测试模式」启动                          ║
+ * ║ 4. 左侧菜单「项目概览」旁的齿轮⚙ →「项目设置」            ║
+ * ║    → 滚动到底部「您的应用」→ 点击 </> (Web)               ║
+ * ║    → 取名注册 → 把下方 firebaseConfig 的值复制过来         ║
+ * ║ 5. 替换下面 FIREBASE_CONFIG 里的占位符                    ║
+ * ║ 6. 部署到 GitHub Pages 就能全员共享计数了！                ║
+ * ╚══════════════════════════════════════════════════════════╝
+ *
+ *  ⚠️ 安全规则：上线后建议把 Realtime Database Rules 改为：
+ *  {
+ *    "rules": {
+ *      "counters": {
+ *        ".read": true,
+ *        ".write": true
+ *      }
+ *    }
+ *  }
+ */
+
+const FIREBASE_CONFIG = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
+  projectId: "YOUR_PROJECT",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+let fbDB=null;
+let _cnt={visits:0,plays:0,millionaires:0};
+let _fbReady=false;
+
+function initFirebase(){
+  try{
+    if(FIREBASE_CONFIG.apiKey==='YOUR_API_KEY'){
+      console.warn('[计数器] Firebase 未配置，使用本地计数（仅当前浏览器可见）');
+      return false;
+    }
+    firebase.initializeApp(FIREBASE_CONFIG);
+    fbDB=firebase.database();
+    // Listen for real-time updates
+    fbDB.ref('counters').on('value',snap=>{
+      const d=snap.val()||{};
+      _cnt.visits=d.visits||0;
+      _cnt.plays=d.plays||0;
+      _cnt.millionaires=d.millionaires||0;
+      refreshCounterUI();
+    });
+    _fbReady=true;
+    console.log('[计数器] Firebase 已连接，全局计数已启用');
+    return true;
+  }catch(e){
+    console.error('[计数器] Firebase 连接失败，回退到本地计数',e);
+    return false;
+  }
+}
+
+// Atomic increment — works for both Firebase and localStorage
+async function cntIncrement(key){
+  if(_fbReady){
+    try{
+      const result=await fbDB.ref('counters/'+key).transaction(v=>(v||0)+1);
+      return result.snapshot.val();
+    }catch(e){console.error(e);}
+  }
+  // localStorage fallback
+  const v=_lsGet(key)+1;_lsSet(key,v);
+  _cnt[key]=v;
+  return v;
+}
+
+async function cntGet(key){
+  if(_fbReady){
+    try{
+      const snap=await fbDB.ref('counters/'+key).get();
+      return snap.val()||0;
+    }catch(e){/* fall through */}
+  }
+  return _lsGet(key);
+}
+
+// localStorage helpers (fallback only)
+function _lsGet(k){try{return parseInt(localStorage.getItem('rb_'+k)||'0')}catch{return 0}}
+function _lsSet(k,v){try{localStorage.setItem('rb_'+k,v+'')}catch{}}
+
+function refreshCounterUI(){
+  const vc=document.getElementById('vc0');
+  const pc=document.getElementById('pc0');
+  if(vc)vc.textContent=_cnt.visits;
+  if(pc)pc.textContent=_cnt.plays;
+}
+
+async function initC(){
+  initFirebase();
+  // Increment visit count
+  const v=await cntIncrement('visits');
+  _cnt.visits=v;
+  _cnt.plays=await cntGet('plays');
+  _cnt.millionaires=await cntGet('millionaires');
+  refreshCounterUI();
+}
+
+/* ═══════════════ ENGINE ═══════════════ */
+async function startGame(){
+  initS();cntIncrement('plays').then(v=>{_cnt.plays=v;refreshCounterUI();});
+  document.getElementById('is').classList.add('hidden');
+  document.getElementById('es').classList.add('hidden');
+  document.getElementById('gs').classList.remove('hidden');
+  document.getElementById('gl').innerHTML='';
+  G.idata=P(IND);G.industry=G.idata.n;G.lastIndustry=G.industry;
+  G.salary=WP(SAL).a;G.trait=P(TRAITS);upS();
+
+  await log('你深吸一口气，踏入了社会。','info');await sl(150);
+  const tc={p:'p',n:'n',u:'u'};
+  await log(`命运安排你进入了 <b>${G.idata.i} ${G.industry}</b>，起步年薪 <b>${fy(G.salary)}</b>。<br>你的特质：<span class="tb ${tc[G.trait.t]}">${G.trait.i} ${G.trait.n}</span> — ${G.trait.d}`,'special');
+  await log(`银行账户：<b>${fy(G.money)}</b>。三十年后能否攒到一千万？千万要保重。`,'info');
+  await sl(200);
+
+  for(let y=1;y<=30;y++){G.year=y;G.totalYears=y;upS();if(G.gameOver)break;await playYear(y);if(G.gameOver)break;}
+  if(!G.gameOver)await endGame();
+}
+
+async function playYear(y){
+  await log(`📅 第 ${y} 年 · ${phaseName(y)}`,'year');
+
+  // Track industry loyalty
+  if(G.industry===G.lastIndustry)G.currentIndYears++;
+  else{G.currentIndYears=1;G.lastIndustry=G.industry;}
+  if(G.currentIndYears>G.longestIndustry)G.longestIndustry=G.currentIndYears;
+
+  if(G.onLeave){G.onLeave=false;await log('👶 育儿假结束，你重新回到了工作岗位。','life');}
+  if(G.unempNext){G.unemployed=true;G.unempNext=false;}
+
+  // INCOME
+  if(!G.unemployed&&!G.isEntrep&&!G.onLeave){
+    chg(G.salary);await log(`💼 工资收入：${ms(G.salary)}`,'gain');
+    if(G.married&&C(65)){const pi=R(50000,Math.floor(G.salary*.7));chg(pi);await log(`💑 伴侣收入贡献：${ms(pi)}`,'gain');}
+  }else if(G.unemployed){
+    await log('💼 待业中，无工资收入。','loss');
+    G.unemployed=false;G.idata=P(IND);G.industry=G.idata.n;G.salary=WP(SAL).a;
+    await log(`找到了新工作！${G.idata.i} ${G.industry}，年薪 ${fy(G.salary)}。`,'info');
+  }
+
+  // Rental income
+  if(hb('rental')){const ri=R(40000,70000);chg(ri);await log(`🏘️ 投资房租金：${ms(ri)}`,'gain');}
+
+  // COSTS
+  const lc=liveCost(y);chg(-lc);
+  let lcN=`🏠 生活开销：${ms(-lc)}`;if(G.kids>0)lcN+=`（含${G.kids}个孩子）`;
+  await log(lcN,'loss');
+  if(G.hasHouse){chg(-G.mortgage);await log(`🏡 房贷：${ms(-G.mortgage)}`,'loss');}
+
+  // Kid milestones
+  for(const ky of G.kidYears){
+    const age=y-ky;
+    if(age===6)await log('🎒 孩子上小学了！','life');
+    if(age===12)await log('📖 孩子上初中了。','life');
+    if(age===15){const c=R(20000,50000);chg(-c);await log(`🏫 孩子上高中，补习费 ${ms(-c)}`,'loss');}
+    if(age===18){const c=R(30000,80000);chg(-c);await log(`🎓 孩子上大学了！学费 ${ms(-c)}`,'life');}
+  }
+
+  // Friend loan
+  if(G.friendLoan>0&&y>=G.friendLY+2){
+    if(C(55)){const rp=Math.floor(G.friendLoan*(C(40)?1.2:1));chg(rp);await log(`🤝 朋友还钱了！${ms(rp)}`,'gain');}
+    else await log(`🤝 借出去的 ${fy(G.friendLoan)} 可能要不回来了……`,'loss');
+    G.friendLoan=0;
+  }
+
+  // Buff expiry
+  G.buffs=G.buffs.filter(b=>{if(b.dur!==undefined){b.dur--;return b.dur>0;}return true;});
+
+  // Entrepreneur
+  if(G.isEntrep){await entreprYear(y);if(G.gameOver)return;}
+
+  // Events
+  const evts=genEvents(y);for(const fn of evts){await fn();if(G.gameOver)return;upS();}
+
+  // Stocks
+  if(G.stocks.own)await stockSettle();
+
+  // Mental health
+  if(G.mentalHealth<40&&C(20))await log('😰 精神压力很大，也许应该关注心理健康。','warn');
+
+  // Summary
+  let sum=`📊 <b>第${y}年结束</b> — 总资产：<b>${fy(G.money)}</b>`;
+  if(G.money>=10000000)sum+=' 🎉';
+  await log(sum,'summary');
+
+  if(G.money<-300000){G.gameOver=true;G.ending='debt';await showEnd();return;}
+  if(G.toughOut>=3){G.gameOver=true;G.ending='health';await showEnd();return;}
+  upS();
+}
+
+/* ═══════════════ EVENT GEN ═══════════════ */
+function genEvents(y){
+  const pool=[];const ph=phase(y);
+  const add=(fn,w,cond=true)=>{if(cond)pool.push({fn,w})};
+
+  // Career
+  add(evWorkHard,22,!G.isEntrep&&!G.unemployed&&!G.onLeave);
+  add(evJobHop,8,!G.isEntrep&&!G.unemployed&&!G.onLeave&&(ht('introvert')?C(50):true));
+  add(evPromotion,6,!G.isEntrep&&!G.unemployed&&y>2);
+  add(evWorkConflict,7,!G.isEntrep&&!G.unemployed);
+  add(evOverseas,3,!G.isEntrep&&!G.unemployed&&G.salary>=200000);
+
+  // Financial
+  add(evLottery,10,C(25));
+  add(evStocks,10,C(35));
+  add(evRealEstate,4,G.money>=500000&&!hb('rental'));
+  add(evHousing,6,!G.hasHouse&&G.money>=300000);
+  add(evCrypto,4,C(12)&&y>=3);
+  add(evSideHustle,8,!G.isEntrep&&C(16));
+
+  // Entrepreneurship
+  add(evEntrep,5,!G.isEntrep&&G.money>=1000000&&y<=27);
+
+  // Life — ROMANCE frequency lowered significantly
+  add(evRelationship,4,!G.hasPartner&&!G.married&&y>=3&&C(18));// was 12 weight, now 4 + 18% gate
+  add(evMarriage,6,G.hasPartner&&!G.married&&(y-G.partnerYear)>=2);// require 2 years dating
+  add(evChild,5,G.married&&G.kids<2&&(y-G.marriedYear)>=2&&!G.onLeave);
+  add(evPet,3,!G.hasPet&&C(8));
+  add(evCar,5,!G.hasCar&&G.money>=100000);
+  add(evTravel,8,G.money>30000&&C(20));
+  add(evReunion,5,C(12));
+  add(evMoving,3,C(6)&&y>3);
+  add(evDivorce,2,G.married&&(y-G.marriedYear)>5&&C(4));
+  add(evParentCare,7,y>=10&&C(18));
+
+  // Health
+  let sickC=ht('sickly')?28:(ht('optimist')?12:18);if(hb('gym'))sickC=Math.floor(sickC*.5);if(ph>=3)sickC+=5;if(ph>=4)sickC+=5;
+  add(evIllness,13,C(sickC));
+  add(evMental,5,G.mentalHealth<60&&C(18));
+  add(evGym,3,C(8)&&!hb('gym'));
+
+  // Social
+  add(evFamily,7,C(ht('connected')?20:10));
+  add(evFriendLoan,4,G.money>50000&&G.friendLoan===0&&C(8));
+  add(evWedding,6,C(12));
+  add(evCharity,3,C(8)&&G.money>100000);
+  add(evMentor,4,C(6));
+  add(evScam,5,C(8));
+  add(evLegal,3,C(5));
+
+  // Items
+  add(evShop,7,C(15));
+  add(evEducation,4,G.diploma<2&&G.money>50000&&C(8));
+
+  // Crisis
+  add(evBlackSwan,18,C(5));
+  add(evSurprise,10,C(22));
+  add(evPolicy,5,C(7));
+  add(evNaturalDisaster,4,C(4));
+
+  const count=R(3,5);const selected=[];const used=new Set();
+  for(let i=0;i<count&&pool.length>0;i++){
+    const avail=pool.filter((_,j)=>!used.has(j));if(!avail.length)break;
+    const tot=avail.reduce((s,e)=>s+e.w,0);let r=Math.random()*tot;
+    for(let j=0;j<pool.length;j++){if(used.has(j))continue;r-=pool[j].w;if(r<=0){selected.push(pool[j].fn);used.add(j);break;}}
+  }
+  return selected;
+}
+
+/* ═══════════════ CAREER ═══════════════ */
+async function evWorkHard(){
+  const c=await ask('💪 绩效评估期到了，你的策略？',[
+    {l:'🔥 全力冲刺争取加薪',s:'有概率涨薪，也可能徒劳'},
+    {l:'📚 参加培训提升自己',s:'长期受益'},
+    {l:'😌 按部就班',s:'不累也不升'},
+  ]);
+  if(c===0){
+    const r=Math.random()*100;const ab=ht('adventurer')?1.3:1;const tb=ht('talented')?1.15:1;
+    let raise,desc;
+    if(r<6){raise=-.15;desc='过度表现反被排挤，降薪了。';}
+    else if(r<25){raise=0;desc='领导说预算有限，薪资不变。';}
+    else if(r<55){raise=.15*ab*tb;desc='表现不错，加薪15%。';}
+    else if(r<75){raise=.3*ab*tb;desc='项目出色，加薪30%！';}
+    else if(r<90){raise=.6*ab*tb;desc='成为骨干，薪资大涨！';}
+    else{raise=1.2*ab*tb;desc='破格晋升，薪资飞跃！';}
+    const old=G.salary;G.salary=Math.floor(G.salary*(1+raise));const d=G.salary-old;
+    if(raise>0){G.raiseN++;await log(`💼 ${desc} 年薪 ${fy(old)} → <b>${fy(G.salary)}</b> (${ms(d)})`,'gain');}
+    else if(raise<0)await log(`💼 ${desc} 年薪 → <b>${fy(G.salary)}</b> (${ms(d)})`,'loss');
+    else await log(`💼 ${desc}`,'info');
+  }else if(c===1){
+    if(C(25)){const old=G.salary;G.salary=Math.floor(G.salary*1.12);await log(`📚 培训有效，年薪 → <b>${fy(G.salary)}</b>`,'gain');}
+    else await log('📚 培训暂未带来涨薪，但能力有了提升。','info');
+  }else{await log('😌 保持节奏，工作与生活平衡。','info');G.mentalHealth=Math.min(100,G.mentalHealth+5);}
+}
+
+async function evJobHop(){
+  const c=await ask('🔄 猎头来电，有新机会。',[
+    {l:'🚀 果断跳槽',s:'重新随机行业和薪资',risky:true},
+    {l:'🤔 先了解一下',s:'50%概率拿到更好offer'},
+    {l:'🙅 留在原地',s:''},
+  ]);
+  if(c===2){await log('🔄 你婉拒了猎头。','info');return;}
+  if(c===1){
+    if(C(50)){const old=G.salary;G.salary=Math.floor(G.salary*1.25);await log(`🔄 拿到好offer，原公司也加薪了！年薪 → <b>${fy(G.salary)}</b>`,'gain');}
+    else await log('🔄 了解后条件一般，你决定留下。','info');
+    return;
+  }
+  G.jobHops++;
+  let uc=20;if(ht('introvert'))uc=30;if(ht('connected'))uc=10;
+  if(C(uc)){G.unempNext=true;await log('🔄 辞职后offer取消了！下一年将待业……','loss');return;}
+  G.idata=P(IND);G.industry=G.idata.n;G.salary=WP(SAL).a;
+  if(hb('network')){G.salary=Math.floor(G.salary*1.3);rb('network');}
+  await log(`🔄 跳槽成功！${G.idata.i} ${G.industry}，年薪 <b>${fy(G.salary)}</b>`,'info');
+}
+
+async function evPromotion(){
+  if(C(30)){
+    const raise=R(25,60)/100;const old=G.salary;G.salary=Math.floor(G.salary*(1+raise));G.raiseN++;
+    G.reputation=Math.min(100,G.reputation+10);
+    await log(`🎊 晋升了！薪资涨${Math.round(raise*100)}%，年薪 → <b>${fy(G.salary)}</b>`,'gain');
+  }else await log('💼 晋升机会擦肩而过。','info');
+}
+
+async function evWorkConflict(){
+  const cfs=['和同事产生分歧','领导批评了你的方案','项目延期被追责','加班太多身心俱疲','被同事甩锅'];
+  const cf=P(cfs);G.mentalHealth=Math.max(0,G.mentalHealth-R(5,10));
+  if(C(30)){const f=R(5000,20000);chg(-f);await log(`😤 ${cf}，扣绩效 ${ms(-f)}`,'warn');}
+  else await log(`😤 ${cf}。心情受了影响。`,'warn');
+}
+
+async function evOverseas(){
+  const c=await ask('✈️ 公司有海外出差机会。',[{l:'🌏 去！',s:'补贴+见识'},{l:'🏠 不去',s:''}]);
+  if(c===0){const b=R(30000,100000);chg(b);G.reputation=Math.min(100,G.reputation+8);await log(`✈️ 海外出差收获满满！${ms(b)}`,'gain');}
+  else await log('✈️ 你选择留守。','info');
+}
+
+/* ═══════════════ FINANCIAL ═══════════════ */
+async function evLottery(){
+  const mx=Math.min(G.money>0?G.money:0,100000);if(mx<100)return;
+  const opts=[{l:'不买了',s:'',a:0}];
+  [100,500,1000,5000,10000,50000].forEach(b=>{if(b<=mx)opts.push({l:`投 ${fy(b)}`,s:'',a:b})});
+  const c=await ask('🎰 彩票站在招手，试试？',opts);const bet=opts[c].a;
+  if(!bet){await log('🎰 理智战胜了冲动。','info');return;}
+  chg(-bet);await log(`🎰 花 ${fy(bet)} 买了彩票……`,'info');await sl(350);
+  const lb=ht('lucky')?4:0;const r=Math.random()*100;
+  // Harder lottery: less chance of big wins
+  if(r<52-lb){await log('🎰 没中奖。','loss');}
+  else if(r<70){chg(bet);await log(`🎰 回本！${ms(bet)}`,'info');}
+  else if(r<84){const w=10000;chg(w);G.lotteryW+=w;await log(`🎰 中了！${ms(w)}`,'gain');}
+  else if(r<94){const w=100000;chg(w);G.lotteryW+=w;G.lotteryBig=true;await log(`🎰 🎉 大奖！${ms(w)}`,'gain');}
+  else if(r<99){const w=1000000;chg(w);G.lotteryW+=w;G.lotteryBig=true;await log(`🎰 🎊🎊 百万大奖！${ms(w)}！`,'gain');}
+  else{const w=10000000;chg(w);G.lotteryW+=w;G.lotteryBig=true;await log(`🎰 🏆🏆🏆 一等奖！！！${ms(w)}！！`,'gain');}
+}
+
+async function evStocks(){
+  if(!G.stocks.own){
+    const mx=Math.max(0,Math.floor(G.money*.4));if(mx<10000)return;
+    const opts=[{l:'不投',s:'',a:0}];
+    [10000,50000,100000,200000,500000].forEach(a=>{if(a<=mx)opts.push({l:`投 ${fy(a)}`,s:'',a})});
+    const c=await ask('📊 朋友推荐了只股票，要投吗？',opts);const inv=opts[c].a;
+    if(!inv){await log('📊 不碰股市。','info');return;}
+    chg(-inv);G.stocks={inv,val:inv,own:true};await log(`📈 投了 ${fy(inv)} 进股市。`,'info');
+  }else{
+    const c=await ask(`📊 持股市值 ${fy(G.stocks.val)}（成本 ${fy(G.stocks.inv)}）`,[
+      {l:'📤 全部卖出',s:`到手 ${fy(G.stocks.val)}`},{l:'💎 继续持有',s:''},{l:'💰 追加投入',s:''},
+    ]);
+    if(c===0){const pf=G.stocks.val-G.stocks.inv;chg(G.stocks.val);G.stockP+=pf;
+      await log(`📤 卖出！${pf>=0?'盈利':'亏损'} ${ms(pf)}`,(pf>=0?'gain':'loss'));G.stocks={inv:0,val:0,own:false};
+    }else if(c===2){const add=Math.min(Math.floor(G.money*.25),200000);
+      if(add>10000){chg(-add);G.stocks.inv+=add;G.stocks.val+=add;await log(`📈 追加 ${fy(add)}。`,'info');}
+    }else await log('💎 继续持有。','info');
+  }
+}
+
+async function stockSettle(){
+  const lb=ht('lucky')?5:0;const fb=hb('finance')?5:0;const r=Math.random()*100;let ch;
+  // Stock market: slightly favor losses
+  if(r<9-lb/2)ch=-.5;else if(r<19-lb/2)ch=-.3;else if(r<32)ch=-.2;else if(r<46)ch=-.1;
+  else if(r<54)ch=0;else if(r<66+fb/2)ch=.1;else if(r<76+fb/2)ch=.2;
+  else if(r<84+lb/2)ch=.3;else if(r<92+lb/3)ch=.5;else ch=.8;
+  if(ht('adventurer'))ch*=1.4;
+  const ov=G.stocks.val;G.stocks.val=Math.max(0,Math.floor(G.stocks.val*(1+ch)));const d=G.stocks.val-ov;
+  const se=P(G.idata?.e||['市场波动']);
+  if(ch>0)await log(`📈 股票：${se}，涨${Math.round(ch*100)}%！市值 ${fy(G.stocks.val)} (${ms(d)})`,'gain');
+  else if(ch<0)await log(`📉 股票：${se}，跌${Math.round(Math.abs(ch)*100)}%。市值 ${fy(G.stocks.val)} (${ms(d)})`,'loss');
+  else await log(`📊 股票横盘 ${fy(G.stocks.val)}`,'info');
+  if(G.stocks.val<=0){await log('📉 股票归零……','loss');G.stocks={inv:0,val:0,own:false};}
+}
+
+async function evRealEstate(){
+  const c=await ask('🏘️ 有投资房产的机会，租金回报不错。',[
+    {l:'🏠 买入投资房（50万）',s:'每年租金4-7万',risky:true},{l:'🙅 不考虑',s:''},
+  ]);
+  if(c===0&&G.money>=500000){chg(-500000);G.buffs.push({e:'rental',dur:99});await log(`🏘️ 投资房成交！${ms(-500000)}`,'info');}
+}
+
+async function evHousing(){
+  const houses=[];
+  if(G.money>=300000)houses.push({d:300000,m:100000,n:'郊区两居室'});
+  if(G.money>=500000)houses.push({d:500000,m:200000,n:'市区三居室'});
+  if(!houses.length)return;
+  const opts=houses.map(h=>({l:`🏠 ${h.n}（首付${fy(h.d)}，年供${fy(h.m)}）`,s:''}));
+  opts.push({l:'🙅 再等等',s:''});
+  const c=await ask('🏗️ 楼盘促销，考虑买房吗？',opts);
+  if(c<houses.length){const h=houses[c];chg(-h.d);G.hasHouse=true;G.mortgage=h.m;await log(`🏡 买了${h.n}！首付 ${ms(-h.d)}，年供 ${fy(h.m)}。`,'info');}
+  else await log('🏗️ 继续观望。','info');
+}
+
+async function evCrypto(){
+  const c=await ask('🪙 有人推荐加密货币项目……',[
+    {l:'💰 投一点试试',s:'高风险',risky:true},{l:'🙅 不碰',s:''},
+  ]);
+  if(c===0){const inv=R(10000,50000);chg(-inv);await sl(250);
+    if(C(20)){const g=inv*R(3,15);chg(g);await log(`🪙 暴涨！${fy(inv)}→${ms(g)}`,'gain');}
+    else if(C(45)){await log(`🪙 归零了……${ms(-inv)}`,'loss');}
+    else{const ret=Math.floor(inv*R(40,130)/100);chg(ret);await log(`🪙 小有波动，回收 ${ms(ret)}`,'info');}
+  }else await log('🪙 明智地远离了。','info');
+}
+
+async function evSideHustle(){
+  const hs=[{n:'接私活',lo:5000,hi:25000},{n:'摆摊',lo:3000,hi:20000},{n:'自媒体写稿',lo:2000,hi:35000},
+    {n:'做家教',lo:5000,hi:18000},{n:'直播带货',lo:1000,hi:50000},{n:'技术咨询',lo:8000,hi:40000}];
+  const h=P(hs);
+  const c=await ask(`🌙 副业机会：${h.n}`,[{l:'✅ 搞起来',s:''},{l:'😴 算了',s:''}]);
+  if(c===0){const inc=R(h.lo,h.hi);chg(inc);G.sideHustleN++;await log(`🌙 ${h.n}赚了 ${ms(inc)}！`,'gain');}
+  else{await log('🌙 休息也是投资。','info');G.mentalHealth=Math.min(100,G.mentalHealth+3);}
+}
+
+/* ═══════════════ ENTREPRENEURSHIP ═══════════════ */
+async function evEntrep(){
+  const c=await ask(`🚀 有人提议合伙创业（至少需要两年）。你有 ${fy(G.money)}。`,[
+    {l:'🚀 辞职创业！',s:'高风险高回报',risky:true},{l:'🙅 继续打工',s:''},
+  ]);
+  if(c===1){await log('🚀 时机未到，继续积累。','info');return;}
+  // Filter out 国企 — cannot start a 国企
+  const startupInds=IND.filter(i=>i.canStartup);
+  const indOpts=startupInds.slice(0,8).map(ind=>({l:`${ind.i} ${ind.n}`,s:''}));
+  const ic=await ask('选择创业方向：',indOpts);
+  const chosen=startupInds[ic];
+  G.isEntrep=true;G.eYears=0;G.eInd=chosen.n;G.eBankrupt=32;
+  if(hb('startup'))G.eBankrupt-=10;
+  const inv=Math.floor(G.money*.5);chg(-inv);
+  await log(`🚀 投入 ${fy(inv)} 创办了 ${chosen.i}${G.eInd} 公司！`,'special');upS();
+}
+
+async function entreprYear(){
+  G.eYears++;if(G.eYears>G.eMaxYears)G.eMaxYears=G.eYears;
+  let bc=G.eBankrupt;if(ht('cautious'))bc-=8;if(ht('adventurer'))bc+=5;
+  if(C(bc)){
+    const loss=Math.floor(G.money*.8);chg(-loss);G.isEntrep=false;
+    await log(`💥 创业第${G.eYears}年——${P(['资金链断裂','合伙人跑路','客户全部流失','恶性竞争','政策突变'])}！亏损 ${ms(-loss)}`,'loss');
+    G.idata=P(IND);G.industry=G.idata.n;G.salary=WP(SAL).a;
+    await log(`重新打工：${G.idata.i} ${G.industry}，年薪 ${fy(G.salary)}`,'info');
+    if(G.money<-300000){G.gameOver=true;G.ending='debt';await showEnd();}return;
+  }
+  // Multipliers — harder: more weight on negative
+  const mults=[
+    {m:-.7,w:3},{m:-.5,w:5},{m:-.3,w:9},{m:-.1,w:14},
+    {m:.1,w:18},{m:.3,w:17},{m:.5,w:14},{m:.7,w:9},
+    {m:1,w:6},{m:2,w:3},{m:5,w:.5},
+  ];
+  if(ht('adventurer'))mults.forEach(m=>{if(Math.abs(m.m)>.5)m.w+=1.5;});
+  const res=WP(mults);const ind=IND.find(i=>i.n===G.eInd);
+  const evtD=P(ind?.e||['市场变化']);
+  const descs=['遭遇危机','严重亏损','业绩下滑','略有亏损','小幅盈利','稳步增长','业务红火','利润丰厚','业绩翻倍！','爆发增长！','现象级成功！'];
+  const di=mults.indexOf(res);
+  const change=Math.floor(G.money*res.m);chg(change);
+  await log(`🏢 创业第${G.eYears}年：${evtD}——${descs[di]||'经营中'} ${ms(change)}`,(change>=0?'gain':'loss'));
+}
+
+/* ═══════════════ LIFE EVENTS ═══════════════ */
+async function evRelationship(){
+  const where=P(['在朋友聚会上','在工作中','在兴趣社群里','在旅途中','在咖啡馆']);
+  const c=await ask(`💕 ${where}遇到一个让你心动的人。`,[
+    {l:'❤️ 试着发展一下',s:'开始恋爱'},{l:'🙅 先专注其他',s:''},
+  ]);
+  if(c===0){G.hasPartner=true;G.partnerYear=G.year;const cost=R(5000,15000);chg(-cost);
+    await log(`💕 恋爱了！约会花费 ${ms(-cost)}。生活多了些色彩。`,'life');G.mentalHealth=Math.min(100,G.mentalHealth+12);
+  }else await log('💕 你决定暂时把精力放在其他方面。','info');
+}
+
+async function evMarriage(){
+  const c=await ask('💍 你们的感情很稳定，考虑结婚吗？',[
+    {l:'💒 结婚！',s:'婚礼花费5-20万，伴侣可能贡献收入'},
+    {l:'🤔 再等等',s:''},{l:'💔 分手',s:'也许不太合适'},
+  ]);
+  if(c===0){const cost=R(50000,200000);chg(-cost);G.married=true;G.everMarried=true;G.marriedYear=G.year;
+    await log(`💒 恭喜！婚礼花费 ${ms(-cost)}，从此有人同行。`,'life');G.mentalHealth=Math.min(100,G.mentalHealth+10);
+  }else if(c===2){G.hasPartner=false;await log('💔 和平分手了。','life');G.mentalHealth=Math.max(0,G.mentalHealth-8);
+  }else await log('💕 再相处一段时间。','info');
+}
+
+async function evChild(){
+  const c=await ask('👶 你和伴侣讨论了是否迎接新生命……',[
+    {l:'👶 准备好了！',s:'将有一年育儿假（无工资），生活费增加'},
+    {l:'🙅 暂时不考虑',s:''},
+  ]);
+  if(c===0){G.kids++;G.kidYears.push(G.year+1);G.onLeave=true;
+    const cost=R(30000,80000);chg(-cost);
+    await log(`👶 恭喜！家里迎来新成员！花费 ${ms(-cost)}。你将休一年育儿假，下一年无工资。`,'life');
+    G.mentalHealth=Math.min(100,G.mentalHealth+8);
+  }else await log('👶 暂时享受现在的生活。','info');
+}
+
+async function evDivorce(){
+  await log('💔 感情生活出现了裂痕……','warn');
+  const c=await ask('💔 你和伴侣关系紧张。',[
+    {l:'💪 努力挽回',s:'花时间和金钱修复'},{l:'💔 协议离婚',s:''},
+  ]);
+  if(c===0){const cost=R(10000,50000);chg(-cost);
+    if(C(60)){await log(`💕 经过努力重新找回了感情。花费 ${ms(-cost)}。`,'life');G.mentalHealth=Math.min(100,G.mentalHealth+5);}
+    else{await log(`💔 还是走到了尽头。${ms(-cost)}。`,'loss');G.married=false;G.hasPartner=false;G.divorced=true;G.mentalHealth=Math.max(0,G.mentalHealth-15);
+      const sp=Math.floor(G.money*.15);if(sp>0){chg(-sp);await log(`💔 财产分割 ${ms(-sp)}`,'loss');}}
+  }else{G.married=false;G.hasPartner=false;G.divorced=true;
+    const sp=Math.floor(G.money*.12);if(sp>0){chg(-sp);await log(`💔 协议离婚，分割 ${ms(-sp)}`,'loss');}
+    G.mentalHealth=Math.max(0,G.mentalHealth-12);
+  }
+}
+
+async function evPet(){
+  const pets=[{n:'猫',c:3000},{n:'狗',c:5000},{n:'仓鼠',c:500}];const pet=P(pets);
+  const c=await ask(`🐾 路过宠物店，一只${pet.n}在看着你……`,[
+    {l:`🐾 领养ta`,s:`花费 ${fy(pet.c)}`},{l:'🙅 忍住了',s:''},
+  ]);
+  if(c===0){chg(-pet.c);G.hasPet=true;G.petType=pet.n;
+    await log(`🐾 领养了一只${pet.n}！${ms(-pet.c)}。有了毛茸茸的陪伴。`,'life');G.mentalHealth=Math.min(100,G.mentalHealth+8);
+  }
+}
+
+async function evCar(){
+  const c=await ask('🚗 4S店促销，买辆车？',[{l:'🚗 买！（10-25万）',s:'年养车约1.5万'},{l:'🚌 不需要',s:''}]);
+  if(c===0){const cost=R(100000,250000);chg(-cost);G.hasCar=true;await log(`🚗 提车！${ms(-cost)}`,'life');}
+  else await log('🚌 暂时不需要车。','info');
+}
+
+async function evTravel(){
+  const dests=['东南亚','日本','欧洲','国内周边','新西兰','冰岛'];const dest=P(dests);
+  const c=await ask(`✈️ 想去${dest}旅行？`,[{l:'✈️ 出发！',s:'花费1-5万，恢复精神'},{l:'💼 没时间',s:''}]);
+  if(c===0){const cost=R(10000,50000);chg(-cost);G.travelN++;
+    await log(`✈️ ${dest}旅行太棒了！${ms(-cost)}`,'life');G.mentalHealth=Math.min(100,G.mentalHealth+15);
+  }else await log('✈️ 等忙完再说。','info');
+}
+
+async function evReunion(){
+  const types=['同学聚会','老友重逢','行业交流会','校友会'];const t=P(types);
+  const cost=R(500,5000);chg(-cost);
+  if(C(25)){const b=R(10000,50000);chg(b);await log(`🥂 ${t}花了 ${fy(cost)}，认识了贵人，带来 ${ms(b)} 的机会！`,'gain');}
+  else{await log(`🥂 ${t}花了 ${ms(-cost)}，和朋友叙旧心情不错。`,'info');G.mentalHealth=Math.min(100,G.mentalHealth+5);}
+}
+
+async function evMoving(){
+  const c=await ask('📦 考虑换个城市发展？',[{l:'🏙️ 搬！',s:'搬家费2-5万，薪资重新随机',risky:true},{l:'🏠 不搬',s:''}]);
+  if(c===0){const cost=R(20000,50000);chg(-cost);G.salary=Math.floor(G.salary*(0.8+Math.random()*0.7));
+    await log(`📦 搬家 ${ms(-cost)}。新城市年薪 ${fy(G.salary)}。`,'info');
+  }
+}
+
+async function evParentCare(){
+  const costs=[{a:10000,d:'父母体检',w:40},{a:30000,d:'父母看病',w:30},{a:50000,d:'父母住院',w:20},{a:100000,d:'父母手术',w:10}];
+  const evt=WP(costs);
+  const c=await ask(`👴 ${evt.d}需要你的支持。`,[{l:`💰 支付 ${fy(evt.a)}`,s:''},{l:'😔 和家人分摊',s:`出 ${fy(Math.floor(evt.a/2))}`}]);
+  const pay=c===0?evt.a:Math.floor(evt.a/2);chg(-pay);
+  await log(`👴 ${evt.d}，你支付了 ${ms(-pay)}。`,'loss');
+}
+
+/* ═══════════════ HEALTH ═══════════════ */
+async function evIllness(){
+  const ills=[{a:5000,d:'感冒发烧',w:30},{a:10000,d:'急性肠胃炎',w:25},{a:20000,d:'腰椎问题',w:20},{a:50000,d:'需要手术',w:15},{a:100000,d:'重大疾病',w:10}];
+  const ill=WP(ills);let cost=ill.a;if(hb('insurance')){cost=Math.floor(cost/2);rb('insurance');}
+  if(phase(G.year)>=3)cost=Math.floor(cost*1.3);
+  const c=await ask(`🏥 身体出问题：${ill.d}，治疗费 ${fy(cost)}。`,[
+    {l:`💊 治疗`,s:``},{l:`😤 咬牙挺住`,s:`(${G.toughOut}/3)${G.toughOut>=2?' ⚠️再扛就倒了':''}`,risky:true},
+  ]);
+  if(c===0){chg(-cost);G.sickN++;await log(`🏥 治疗了${ill.d}，${ms(-cost)}。`,'loss');}
+  else{G.toughOut++;G.healthIssues++;G.mentalHealth=Math.max(0,G.mentalHealth-10);
+    if(G.toughOut>=3)await log('🏥 第三次硬扛……身体彻底撑不住了。','loss');
+    else await log(`🏥 硬扛了${ill.d}。(${G.toughOut}/3)`,'warn');}
+}
+
+async function evMental(){
+  const c=await ask('😰 精神状态不好，压力很大……',[
+    {l:'🧘 心理咨询',s:'花费5000-20000'},{l:'🍻 找朋友吐槽',s:''},{l:'😶 自己扛',s:''},
+  ]);
+  if(c===0){const cost=R(5000,20000);chg(-cost);G.mentalHealth=Math.min(100,G.mentalHealth+25);await log(`🧘 心理咨询很有效，${ms(-cost)}。`,'life');}
+  else if(c===1){const cost=R(500,3000);chg(-cost);G.mentalHealth=Math.min(100,G.mentalHealth+10);await log(`🍻 和朋友聊了聊，${ms(-cost)}。`,'info');}
+  else{G.mentalHealth=Math.max(0,G.mentalHealth-10);await log('😶 压力不会因沉默消失。','warn');}
+}
+
+async function evGym(){
+  const c=await ask('🏋️ 健身房活动，办卡？',[{l:'💪 办！（8000）',s:'降低生病概率3年'},{l:'🚶 跑步免费',s:''}]);
+  if(c===0){chg(-8000);G.buffs.push({e:'gym',dur:3});await log(`🏋️ 健身卡到手！${ms(-8000)}`,'gain');G.mentalHealth=Math.min(100,G.mentalHealth+5);}
+}
+
+/* ═══════════════ SOCIAL ═══════════════ */
+async function evFamily(){
+  const amts=[{a:5000,d:'爸妈给了红包',w:35},{a:10000,d:'亲戚过节塞钱',w:30},{a:50000,d:'家里分了笔钱',w:20},{a:100000,d:'远亲留了遗产',w:10},{a:200000,d:'家族基金分红',w:5}];
+  let s=WP(amts);if(ht('connected'))s={...s,a:Math.floor(s.a*1.3)};
+  chg(s.a);await log(`👨‍👩‍👧 ${s.d}，${ms(s.a)}`,'gain');
+}
+
+async function evFriendLoan(){
+  const a=P([10000,30000,50000,100000].filter(x=>x<=G.money*.3));if(!a)return;
+  const c=await ask(`🤝 朋友急需 ${fy(a)}，能帮忙吗？`,[{l:'💸 借',s:'可能还也可能不还'},{l:'🙅 婉拒',s:''}]);
+  if(c===0){chg(-a);G.friendLoan=a;G.friendLY=G.year;await log(`🤝 借出 ${ms(-a)}。`,'info');}
+  else await log('🤝 你委婉拒绝了。','info');
+}
+
+async function evWedding(){
+  const who=P(['同事','老同学','表亲','好友']);const gift=R(500,5000);chg(-gift);
+  await log(`💐 ${who}结婚了，随了份子钱 ${ms(-gift)}。`,'loss');
+}
+
+async function evCharity(){
+  const c=await ask('🎗️ 有公益项目在募捐。',[{l:'❤️ 捐一点',s:'1-5万，提升声望'},{l:'🙅 暂时不了',s:''}]);
+  if(c===0){const cost=R(10000,50000);chg(-cost);G.reputation=Math.min(100,G.reputation+10);G.charityN++;
+    await log(`🎗️ 捐了 ${ms(-cost)}，内心满足。`,'life');}
+}
+
+async function evMentor(){
+  const ms2=[
+    {n:'行业前辈',b:'职场建议',f:()=>{G.salary=Math.floor(G.salary*1.08);}},
+    {n:'创业导师',b:'创业经验',f:()=>{G.eBankrupt=Math.max(10,G.eBankrupt-8);}},
+    {n:'理财专家',b:'投资技巧',f:()=>{G.buffs.push({e:'finance',dur:99});}},
+    {n:'人生导师',b:'生活智慧',f:()=>{G.mentalHealth=Math.min(100,G.mentalHealth+15);}},
+  ];const m=P(ms2);m.f();await log(`🧙 偶遇${m.n}，ta分享了${m.b}。受益匪浅！`,'special');
+}
+
+async function evScam(){
+  const sc=P([{d:'接到诈骗电话',a:R(5000,50000)},{d:'网络钓鱼',a:R(3000,30000)},{d:'被"投资大师"忽悠',a:R(10000,80000)}]);
+  const c=await ask(`⚠️ ${sc.d}！对方看起来很专业……`,[{l:'🚫 果断拒绝',s:''},{l:'🤔 听听看',s:'有风险',risky:true}]);
+  if(c===0)await log('🚫 警觉救了你！','gain');
+  else{if(C(60)){const loss=Math.min(sc.a,Math.max(0,G.money));chg(-loss);await log(`😱 上当了！${ms(-loss)}`,'loss');}
+  else await log('😮‍💨 中途醒悟，没有损失。','warn');}
+}
+
+async function evLegal(){
+  const c=await ask('⚖️ 卷入法律纠纷。',[{l:'👨‍⚖️ 请律师',s:'花费2-10万，可能获赔'},{l:'🤝 私了',s:'花少点'}]);
+  if(c===0){const cost=R(20000,100000);chg(-cost);
+    if(C(50)){const comp=cost+R(20000,200000);chg(comp);await log(`⚖️ 打赢了！律师费 ${fy(cost)}，获赔 ${ms(comp)}`,'gain');}
+    else await log(`⚖️ 输了……${ms(-cost)}`,'loss');
+  }else{const cost=R(5000,30000);chg(-cost);await log(`⚖️ 私了，${ms(-cost)}`,'loss');}
+}
+
+async function evShop(){
+  const items=[{n:'理财课程',c:20000,d:'股票收益提高',e:'finance',dur:99},
+    {n:'人脉饭局',c:15000,d:'跳槽更优',e:'network'},{n:'创业讲座',c:10000,d:'创业风险降低',e:'startup'},
+    {n:'保险套餐',c:12000,d:'生病费用减半',e:'insurance'},{n:'技能认证',c:30000,d:'加薪概率提升',e:'skill',dur:99}];
+  const avail=items.filter(i=>!hb(i.e)&&i.c<=G.money);if(!avail.length)return;const it=P(avail);
+  const c=await ask('🛒 发现一个机会：',[{l:`✅ ${it.n}（${fy(it.c)}）`,s:it.d},{l:'❌ 不需要',s:''}]);
+  if(c===0){chg(-it.c);G.buffs.push({e:it.e,dur:it.dur});await log(`🎒 购入【${it.n}】，${ms(-it.c)}`,'special');}
+}
+
+async function evEducation(){
+  const edu=[{n:'硕士学位',c:80000,lv:1},{n:'MBA',c:150000,lv:1},{n:'博士学位',c:50000,lv:2}];
+  const avail=edu.filter(e=>e.lv>G.diploma&&e.c<=G.money);if(!avail.length)return;const e=P(avail);
+  const c=await ask(`🎓 有机会进修${e.n}。`,[{l:`📖 读！（${fy(e.c)}）`,s:'学历提升薪资可能大涨'},{l:'🙅 算了',s:''}]);
+  if(c===0){chg(-e.c);G.diploma=e.lv;const raise=R(15,40)/100;G.salary=Math.floor(G.salary*(1+raise));
+    await log(`🎓 拿到${e.n}！${ms(-e.c)}，年薪涨${Math.round(raise*100)}% → ${fy(G.salary)}`,'special');}
+}
+
+/* ═══════════════ CRISIS ═══════════════ */
+async function evBlackSwan(){
+  const evts=[
+    {n:'全球疫情',d:'经济遭受重创',f:()=>{const l=Math.floor(G.money*R(10,30)/100);chg(-l);return`资产缩水 ${ms(-l)}`}},
+    {n:'行业大爆发',d:'你的领域迎来政策红利！',f:()=>{const g=Math.floor(G.salary*R(40,150)/100);chg(g);return`额外 ${ms(g)}`}},
+    {n:'金融危机',d:'市场崩盘',f:()=>{if(G.stocks.own){const l=Math.floor(G.stocks.val*.6);G.stocks.val-=l;return`股票蒸发${fy(l)}`}return'好在你没持股。'}},
+    {n:'恶性通胀',d:'物价飞涨',f:()=>{const c=R(30000,100000);chg(-c);return`额外支出 ${ms(-c)}`}},
+    {n:'政策利好',d:'经济刺激！',f:()=>{const g=R(50000,250000);chg(g);return`红利 ${ms(g)}`}},
+    {n:'科技革命',d:'AI改变了格局',f:()=>{if(C(45)){const g=R(40000,150000);chg(g);return`抓住机会 ${ms(g)}`}const l=R(30000,100000);chg(-l);return`技能被替代 ${ms(-l)}`}},
+    {n:'房产泡沫',d:'房价剧烈波动',f:()=>{if(G.hasHouse&&C(50)){const l=R(50000,200000);chg(-l);return`房子贬值 ${ms(-l)}`}return'暂时和你无关。'}},
+  ];
+  const e=P(evts);await log(`🦢 <b>【黑天鹅】${e.n}</b><br>${e.d}`,'special');await sl(350);
+  let result=e.f();
+  if(ht('zen')){await log('🧘 佛系心态让你从容应对。','info');}
+  await log(`🦢 ${result}`,'info');
+}
+
+async function evSurprise(){
+  const ss=[
+    {d:'捡到红包',a:R(100,2000),t:'gain'},{d:'交通罚款',a:-R(200,2000),t:'loss'},
+    {d:'年终抽奖中了电子产品',a:R(3000,8000),t:'gain'},{d:'手机进水换新',a:-R(3000,12000),t:'loss'},
+    {d:'自媒体内容爆火',a:R(5000,60000),t:'gain'},{d:'双十一冲动消费',a:-R(3000,20000),t:'loss'},
+    {d:'帮邻居忙收到感谢',a:R(500,5000),t:'gain'},{d:'闲鱼卖旧物',a:R(1000,15000),t:'gain'},
+    {d:'水管爆了修理',a:-R(1000,8000),t:'loss'},{d:'前同事创业分红',a:R(10000,80000),t:'gain'},
+    {d:'被蹭车修理',a:-R(5000,30000),t:'loss'},{d:'银行理财利息',a:R(2000,15000),t:'gain'},
+    {d:'家电集体罢工',a:-R(8000,30000),t:'loss'},{d:'行业优秀员工奖金',a:R(10000,40000),t:'gain'},
+    {d:'信用卡被盗刷',a:-R(3000,15000),t:'loss'},{d:'兼职翻译收入',a:R(3000,12000),t:'gain'},
+  ];
+  const s=P(ss);chg(s.a);await log(`${s.t==='gain'?'🎁':'😅'} ${s.d}。${ms(s.a)}`,s.t);
+}
+
+async function evPolicy(){
+  const ps=[
+    {d:'个税起征点上调',f:()=>{const g=R(5000,15000);chg(g);return ms(g)}},
+    {d:'社保缴费调整',f:()=>{const l=R(3000,15000);chg(-l);return ms(-l)}},
+    {d:'人才引进补贴',f:()=>{if(G.diploma>=1){const g=R(20000,60000);chg(g);return ms(g)}return'学历不符合条件。'}},
+    {d:'房贷利率下调',f:()=>{if(G.hasHouse){G.mortgage=Math.floor(G.mortgage*.9);return`年供 → ${fy(G.mortgage)}`}return'和你暂无关。'}},
+  ];const p=P(ps);const r=p.f();await log(`📋 ${p.d}。${r}`,'info');
+}
+
+async function evNaturalDisaster(){
+  const ds=[{d:'台风过境',l:R(5000,30000)},{d:'暴雨内涝',l:R(10000,50000)},{d:'极端高温',l:R(3000,15000)}];
+  const nd=P(ds);await log(`🌊 ${nd.d}！`,'warn');
+  const cost=R(1000,nd.l);chg(-cost);await log(`🌊 相关支出 ${ms(-cost)}`,'loss');
+}
+
+/* ═══════════════ ENDINGS ═══════════════ */
+async function endGame(){
+  if(G.stocks.own){chg(G.stocks.val);G.stockP+=G.stocks.val-G.stocks.inv;
+    await log(`📊 股票清算，到手 ${fy(G.stocks.val)}。`,'info');G.stocks={inv:0,val:0,own:false};}
+  await sl(400);
+  if(G.money>=50000000)G.ending='legend';
+  else if(G.money>=10000000)G.ending='millionaire';
+  else G.ending='ordinary';
+  await showEnd();
+}
+
+async function showEnd(){
+  document.getElementById('ca').classList.add('hidden');await sl(500);
+  document.getElementById('gs').classList.add('hidden');
+  const s=document.getElementById('es');s.classList.remove('hidden');
+
+  const endings={
+    debt:{i:'💸',t:'负债累累',c:'var(--red)',
+      d:'你的欠款已超三十万，信用岌岌可危。为了自己的信用与社会公民权，你决心用各种方法填补负债。从此勤俭节约，慢慢偿还。人生没有过不去的坎，但这关确实不易。'},
+    health:{i:'🏥',t:'身体欠佳',c:'#E65100',
+      d:'在对金钱的追逐中，你一次又一次忽视身体的警告。终于，身体不堪重负。身体才是革命的本钱——这句话，你终于体会到了。'},
+    ordinary:{i:'🌅',t:'平凡幸福',c:'var(--gold)',
+      d:'你没有赚到一千万，但三十年间经历了许多。'+
+        (G.married?'和伴侣携手走过风雨。':'')+(G.kids>0?`看着孩子长大，这本身就是成就。`:'')+
+        '身体健康，内心踏实。活在当下，就挺好。'},
+    millionaire:{i:'👑',t:'千万富翁',c:'var(--gold)',
+      d:'你完成了资本的原始积累！三十年的每个选择都化作了账户里的数字。'+
+        (G.married?'和伴侣共同走到这里，更加珍贵。':'')+
+        '用这笔钱安享还是继续拼搏，全在你。'},
+    legend:{i:'🏆',t:'商业传奇',c:'var(--purple)',
+      d:'五千万！从手握二十万到坐拥千万资产的传奇，你证明了运气、胆量和智慧缺一不可。'},
+  };
+
+  const e=endings[G.ending];
+  const achMap=getAch();
+  const achCount=Object.values(achMap).filter(Boolean).length;
+  let mc=_cnt.millionaires;
+  let extra='';
+  if(G.ending==='millionaire'||G.ending==='legend'){
+    mc=await cntIncrement('millionaires');_cnt.millionaires=mc;
+    extra=`<div style="margin:10px 0;color:var(--gold);font-weight:700">🎉 你是第 ${mc} 个达成千万的人！</div>`;
+  }
+
+  // Verification code
+  const vcode=genCode();
+
+  const diploma=['本科','硕士','博士'][G.diploma]||'本科';
+
+  // Achievement HTML
+  let achHTML='<div class="ach-section"><div class="ach-title">🏅 成就（'+achCount+'/'+ACH_DEFS.length+'）</div><div class="ach-grid">';
+  for(const ad of ACH_DEFS){
+    const earned=achMap[ad.id];
+    achHTML+=`<span class="ach${earned?' earned':''}" title="${ad.d}">${earned?ad.n:ad.n.replace(/./g,'?').substring(0,6)}</span>`;
+  }
+  achHTML+='</div></div>';
+
+  s.innerHTML=`
+    <div class="ei">${e.i}</div>
+    <div class="et" style="color:${e.c}">${e.t}</div>
+    <div class="ed">${e.d}</div>
+    ${extra}
+    <div class="est">
+      <div><span>最终资产</span><span style="font-weight:700;color:${G.money>=0?'var(--grn)':'var(--red)'}">${fy(G.money)}</span></div>
+      <div><span>历史峰值</span><span>${fy(G.peak)}</span></div>
+      <div><span>最终行业</span><span>${G.idata?G.idata.i+' '+G.industry:'-'}</span></div>
+      <div><span>特质</span><span>${G.trait?G.trait.i+' '+G.trait.n:'-'}</span></div>
+      <div><span>学历</span><span>${diploma}</span></div>
+      <div><span>家庭</span><span>${G.married?'💍 已婚':(G.hasPartner?'💕 恋爱中':'单身')}${G.kids>0?' · 👶×'+G.kids:''}</span></div>
+      <div><span>加薪</span><span>${G.raiseN}次</span></div>
+      <div><span>累计收入</span><span>${fy(G.totalIn)}</span></div>
+      <div><span>累计支出</span><span>${fy(G.totalOut)}</span></div>
+      ${G.lotteryW?`<div><span>彩票</span><span>${fy(G.lotteryW)}</span></div>`:''}
+      ${G.stockP?`<div><span>股票盈亏</span><span style="color:${G.stockP>=0?'var(--grn)':'var(--red)'}">${fy(G.stockP)}</span></div>`:''}
+      <div><span>生病</span><span>${G.sickN+G.toughOut}次</span></div>
+      ${G.hasHouse?'<div><span>房产</span><span>🏡</span></div>':''}
+      ${G.hasCar?'<div><span>座驾</span><span>🚗</span></div>':''}
+      ${G.hasPet?`<div><span>宠物</span><span>🐾 ${G.petType}</span></div>`:''}
+      <div><span>成就</span><span>${achCount}/${ACH_DEFS.length}</span></div>
+    </div>
+    ${achHTML}
+    <div class="vcode-label">🔐 防伪验证码（截图凭证）</div>
+    <div class="vcode" onclick="navigator.clipboard?.writeText(this.textContent)">${vcode}</div>
+    <div class="reward-note">
+      🎁 最终通关千万结局的玩家抽两位v你50<br>
+      在不同档收集全成就的玩家抽两位请奶茶<br>
+      请于2026.7.10及以前凭截图（含验证码）找作者兑换
+    </div>
+    <button class="stb" onclick="restart()" style="margin-top:12px">再来一次</button>
+    <div class="vc" style="margin-top:16px">
+      🌐 访问 ${_cnt.visits} 次 · 🎮 游玩 ${_cnt.plays} 次${mc>0?' · 👑 '+mc+'人达成千万':''}
+    </div>
+  `;
+}
+
+function restart(){
+  document.getElementById('es').classList.add('hidden');document.getElementById('gs').classList.add('hidden');
+  document.getElementById('is').classList.remove('hidden');
+  refreshCounterUI();
+}
+
+function toggleGuide(){
+  const btn=document.getElementById('guideBtn');
+  const box=document.getElementById('guideBox');
+  btn.classList.toggle('open');
+  box.classList.toggle('open');
+}
+
+window.addEventListener('DOMContentLoaded',initC);
+</script>
+</body>
+</html>
