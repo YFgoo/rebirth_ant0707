@@ -223,6 +223,12 @@ function liveCost(y){
   if(G.married)c+=25000;
   if(G.kids>0)c+=G.kids*28000;
   if(G.hasCar)c+=15000;
+  // 高薪生活方式通胀
+  const sal=G.salary||0;
+  if(sal>=5000000)c+=600000;
+  else if(sal>=2000000)c+=300000;
+  else if(sal>=1000000)c+=150000;
+  else if(sal>=500000)c+=50000;
   return c;
 }
 
