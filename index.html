@@ -20,6 +20,9 @@ body{font-family:'Noto Sans SC',system-ui,sans-serif;background:var(--bg);color:
 #gt em{color:var(--gold);font-style:normal}
 .sg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
 .sb2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+#sb{position:relative}
+.restart-btn{position:absolute;right:0;top:14px;padding:5px 12px;font-size:.76em;font-family:'Noto Sans SC',sans-serif;background:transparent;color:var(--tx2);border:1px solid var(--bdr);border-radius:6px;cursor:pointer;transition:all .2s;opacity:.5;z-index:10;line-height:1.4}
+.restart-btn:hover{opacity:1;border-color:var(--red);color:var(--red);background:rgba(183,28,28,.06)}
 .sx{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;padding:6px 10px;text-align:center;box-shadow:0 1px 3px var(--shd)}
 .sl{font-size:.7em;color:var(--tx2)}.sv{font-family:'Noto Serif SC',serif;font-size:1.1em;font-weight:700}
 .sv.money{color:var(--gold)}.sv.money.neg{color:var(--red)}.ss{font-size:.68em;color:var(--tx2);margin-top:1px}
@@ -123,6 +126,7 @@ body{font-family:'Noto Sans SC',system-ui,sans-serif;background:var(--bg);color:
 <div id="gs" class="hidden">
   <div id="sb">
     <div id="gt">重生之<em>千万</em>要保重</div>
+    <button class="restart-btn" onclick="restartGame()" title="重新开始（计入游玩次数）">🔄 重开</button>
     <div class="sg">
       <div class="sx"><div class="sl">年份</div><div class="sv" id="sY">第1年</div><div class="ss" id="sA"></div></div>
       <div class="sx"><div class="sl">总资产</div><div class="sv money" id="sM">¥200,000</div><div class="ss" id="sI"></div></div>
@@ -140,6 +144,8 @@ body{font-family:'Noto Sans SC',system-ui,sans-serif;background:var(--bg);color:
 </div>
 <script>
 /* ═══════════════ ANTI-CHEAT ═══════════════ */
+let _gameId=0; // generation counter: increments on every restart
+let _pendingReject=null; // stores ask() reject so restart can unblock it
 const SESSION=crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2);
 let _fp=[];// fingerprint: records every choice
 function fpAdd(v){_fp.push(v)}
@@ -369,7 +375,8 @@ async function pLQ(){
 }
 
 function ask(prompt,opts){
-  return new Promise(resolve=>{
+  return new Promise((resolve,reject)=>{
+    _pendingReject=reject; // store so restartGame() can unblock
     const a=document.getElementById('ca'),p=document.getElementById('cP'),b=document.getElementById('cB');
     const gl=document.getElementById('gl');
     p.textContent=prompt;b.innerHTML='';
@@ -378,6 +385,7 @@ function ask(prompt,opts){
       bt.className='ct'+(o.risky?' risky':'');
       bt.innerHTML=o.l+(o.s?`<span class="bs">${o.s}</span>`:'');
       bt.onclick=()=>{
+        _pendingReject=null; // clear before resolving
         a.classList.add('hidden');
         gl.style.paddingBottom='60px';
         fpAdd(i);resolve(i);
@@ -511,6 +519,7 @@ async function initC(){
 
 /* ═══════════════ ENGINE ═══════════════ */
 async function startGame(){
+  const myId=++_gameId; // tag this game session
   initS();cntIncrement('plays').then(v=>{_cnt.plays=v;refreshCounterUI();});
   document.getElementById('is').classList.add('hidden');
   document.getElementById('es').classList.add('hidden');
@@ -519,14 +528,16 @@ async function startGame(){
   G.idata=P(IND);G.industry=G.idata.n;G.lastIndustry=G.industry;
   G.salary=WP(SAL).a;G.trait=P(TRAITS);upS();
 
+  try{
   await log('你深吸一口气，踏入了社会。','info');await sl(150);
   const tc={p:'p',n:'n',u:'u'};
   await log(`命运安排你进入了 <b>${G.idata.i} ${G.industry}</b>，起步年薪 <b>${fy(G.salary)}</b>。<br>你的特质：<span class="tb ${tc[G.trait.t]}">${G.trait.i} ${G.trait.n}</span> — ${G.trait.d}`,'special');
   await log(`银行账户：<b>${fy(G.money)}</b>。三十年后能否攒到一千万？千万要保重。`,'info');
   await sl(200);
 
-  for(let y=1;y<=30;y++){G.year=y;G.totalYears=y;upS();if(G.gameOver)break;await playYear(y);if(G.gameOver)break;}
-  if(!G.gameOver)await endGame();
+  for(let y=1;y<=30;y++){if(_gameId!==myId)return;G.year=y;G.totalYears=y;upS();if(G.gameOver)break;await playYear(y);if(G.gameOver)break;}
+  if(!G.gameOver&&_gameId===myId)await endGame();
+  }catch(e){if(e==='RESTART')return;throw e;} // restart was pressed — exit silently
 }
 
 async function playYear(y){
@@ -1198,6 +1209,18 @@ async function showEnd(){
       🌐 访问 ${_cnt.visits} 次 · 🎮 游玩 ${_cnt.plays} 次${mc>0?' · 👑 '+mc+'人达成千万':''}
     </div>
   `;
+}
+
+function restartGame(){
+  // Reject any pending ask() to unblock the old game loop
+  if(_pendingReject){_pendingReject('RESTART');_pendingReject=null;}
+  // Clear pending log queue
+  LQ.forEach(item=>item.resolve());LQ=[];isL=false;
+  // Clean up UI
+  document.getElementById('ca').classList.add('hidden');
+  document.getElementById('gl').style.paddingBottom='60px';
+  // Start a fresh game (startGame increments play count automatically)
+  startGame();
 }
 
 function restart(){
