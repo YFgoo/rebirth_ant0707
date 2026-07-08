@@ -72,7 +72,7 @@ body{font-family:'Noto Sans SC',system-ui,sans-serif;background:var(--bg);color:
 .vcode{margin:12px 0;padding:12px 18px;background:#F3E5F5;border:2px solid var(--purple);border-radius:10px;font-family:monospace;font-size:.9em;letter-spacing:.1em;color:var(--purple);text-align:center;word-break:break-all;user-select:all;cursor:pointer}
 .vcode-label{font-size:.72em;color:var(--tx2);margin-bottom:4px;font-family:'Noto Sans SC',sans-serif}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px}
-@media(max-width:480px){#gt{font-size:1.2em}.sv{font-size:.95em}.sg{grid-template-columns:1fr 1fr}.ly{font-size:1em}#is h1{font-size:1.6em}}
+@media(max-width:480px){#gt{font-size:1.2em}.sv{font-size:.95em}.sg{grid-template-columns:1fr 1fr;gap:5px}.sg .sx:last-child{grid-column:1/-1}.ly{font-size:1em}#is h1{font-size:1.6em}.restart-btn{font-size:.7em;padding:4px 8px}}
 .hidden{display:none!important}
 /* GUIDE */
 .guide-toggle{margin:20px 0 8px;padding:10px 22px;background:var(--bg2);border:1px solid var(--bdr);border-radius:10px;cursor:pointer;font-size:.88em;color:var(--tx2);transition:all .2s;user-select:none;display:inline-flex;align-items:center;gap:6px}
@@ -118,7 +118,7 @@ body{font-family:'Noto Sans SC',system-ui,sans-serif;background:var(--bg);color:
   <div class="reward-note">
     🎁 最终通关千万结局的玩家抽两位v你50<br>
     在不同档收集全成就的玩家抽两位请奶茶<br>
-    请于2026.7.10前凭截图凭据找作者兑换
+    请于2026.7.10及以前凭截图凭据找作者兑换
   </div>
   <div class="vc">🌐 访问 <span id="vc0">0</span> 次 · 🎮 游玩 <span id="pc0">0</span> 次</div>
 </div>
@@ -312,6 +312,7 @@ function initS(){
     currentIndYears:0,longestIndustry:0,lastIndustry:'',
     hadNegative:false,
     sideBiz:false,
+    partnerDebt:0,// partner's hidden debt discovered after marriage
   };
 }
 
@@ -634,9 +635,9 @@ function genEvents(y){
   add(evEntrep,5,!G.isEntrep&&G.money>=1000000&&y<=27);
 
   // Life — ROMANCE frequency lowered significantly
-  add(evRelationship,4,!G.hasPartner&&!G.married&&y>=3&&C(18));// was 12 weight, now 4 + 18% gate
+  add(evRelationship,5,!G.hasPartner&&!G.married&&y>=3&&C(50));// ~50% chance to enter pool
   add(evMarriage,6,G.hasPartner&&!G.married&&(y-G.partnerYear)>=2);// require 2 years dating
-  add(evChild,5,G.married&&G.kids<2&&(y-G.marriedYear)>=2&&!G.onLeave);
+  add(evChild,4,G.married&&G.kids<2&&(y-G.marriedYear)>=3&&!G.onLeave&&C(25));// less pushy: weight 3, need 3yr married, 25% gate
   add(evPet,3,!G.hasPet&&C(8));
   add(evCar,5,!G.hasCar&&G.money>=100000);
   add(evTravel,8,G.money>30000&&C(20));
@@ -830,7 +831,7 @@ async function evCrypto(){
 }
 
 async function evSideHustle(){
-  const hs=[{n:'接私活',lo:5000,hi:25000},{n:'摆摊',lo:3000,hi:20000},{n:'自媒体写稿',lo:2000,hi:35000},
+  const hs=[{n:'兼职遛狗',lo:5000,hi:25000},{n:'摆摊',lo:3000,hi:20000},{n:'自媒体写稿',lo:2000,hi:35000},
     {n:'做家教',lo:5000,hi:18000},{n:'直播带货',lo:1000,hi:50000},{n:'技术咨询',lo:8000,hi:40000}];
   const h=P(hs);
   const c=await ask(`🌙 副业机会：${h.n}`,[{l:'✅ 搞起来',s:''},{l:'😴 算了',s:''}]);
@@ -892,26 +893,70 @@ async function evRelationship(){
 }
 
 async function evMarriage(){
-  const c=await ask('💍 你们的感情很稳定，考虑结婚吗？',[
-    {l:'💒 结婚！',s:'婚礼花费5-20万，伴侣可能贡献收入'},
-    {l:'🤔 再等等',s:''},{l:'💔 分手',s:'也许不太合适'},
+  const c=await ask('💍 你和伴侣感情很稳定，考虑下一步吗？',[
+    {l:'💒 直接结婚！',s:'婚礼花费5-20万，但没查过ta的财务状况',risky:true},
+    {l:'🔍 先查一下ta的征信',s:'花5000元，了解伴侣的财务情况再决定'},
+    {l:'🤔 再等等',s:''},
+    {l:'💔 分手',s:'也许不太合适'},
   ]);
-  if(c===0){const cost=R(50000,200000);chg(-cost);G.married=true;G.everMarried=true;G.marriedYear=G.year;
-    await log(`💒 恭喜！婚礼花费 ${ms(-cost)}，从此有人同行。`,'life');G.mentalHealth=Math.min(100,G.mentalHealth+10);
-  }else if(c===2){G.hasPartner=false;await log('💔 和平分手了。','life');G.mentalHealth=Math.max(0,G.mentalHealth-8);
+  if(c===0){
+    // Marry without checking — 25% chance partner has hidden debt
+    const cost=R(50000,200000);chg(-cost);G.married=true;G.everMarried=true;G.marriedYear=G.year;
+    await log(`💒 恭喜！婚礼花费 ${ms(-cost)}，从此有人同行。`,'life');
+    G.mentalHealth=Math.min(100,G.mentalHealth+10);
+    if(C(25)){
+      const debt=R(100000,500000);G.partnerDebt=debt;
+      await log(`😰 婚后发现伴侣隐瞒了 ${fy(debt)} 的债务……这笔钱变成了你们的共同负债。`,'loss');
+      chg(-debt);
+    }
+  }else if(c===1){
+    // Credit check
+    chg(-5000);
+    await log(`🔍 你花了 ${ms(-5000)} 做了征信调查……`,'info');await sl(300);
+    if(C(25)){
+      const debt=R(100000,500000);
+      await log(`⚠️ 调查发现伴侣背负 ${fy(debt)} 的隐性债务！`,'warn');
+      const c2=await ask('⚠️ 伴侣有隐性负债，你怎么办？',[
+        {l:'💒 依然选择结婚',s:`承担共同债务 ${fy(debt)}，但ta答应一起还`,risky:true},
+        {l:'💬 要求ta先还清再结婚',s:'婚事推迟，但更安全'},
+        {l:'💔 无法接受，分手',s:''},
+      ]);
+      if(c2===0){
+        const cost=R(50000,200000);chg(-cost);chg(-debt);G.married=true;G.everMarried=true;G.marriedYear=G.year;G.partnerDebt=debt;
+        await log(`💒 你选择了接受。婚礼 ${ms(-cost)}，共同承担 ${fy(debt)} 债务。爱情不容易。`,'life');
+        G.mentalHealth=Math.min(100,G.mentalHealth+5);
+      }else if(c2===1){
+        await log('💬 你和伴侣约定先处理债务，婚事以后再说。','info');
+      }else{
+        G.hasPartner=false;
+        await log('💔 你无法接受这个风险，选择了分手。','life');G.mentalHealth=Math.max(0,G.mentalHealth-10);
+      }
+    }else{
+      await log('✅ 征信良好！伴侣财务状况清白，可以放心了。','gain');
+      const c2=await ask('💍 征信没问题，现在结婚吗？',[
+        {l:'💒 结婚！',s:'放心步入婚姻'},{l:'🤔 再等等',s:''},
+      ]);
+      if(c2===0){
+        const cost=R(50000,200000);chg(-cost);G.married=true;G.everMarried=true;G.marriedYear=G.year;
+        await log(`💒 恭喜！婚礼花费 ${ms(-cost)}，知根知底，安心同行。`,'life');
+        G.mentalHealth=Math.min(100,G.mentalHealth+12);
+      }else await log('💕 再处一段时间也好。','info');
+    }
+  }else if(c===3){
+    G.hasPartner=false;await log('💔 和平分手了。','life');G.mentalHealth=Math.max(0,G.mentalHealth-8);
   }else await log('💕 再相处一段时间。','info');
 }
 
 async function evChild(){
-  const c=await ask('👶 你和伴侣讨论了是否迎接新生命……',[
-    {l:'👶 准备好了！',s:'将有一年育儿假（无工资），生活费增加'},
-    {l:'🙅 暂时不考虑',s:''},
+  const c=await ask('👶 你和伴侣聊起了未来的家庭规划……',[
+    {l:'👶 准备迎接新生命',s:'将有一年育儿假（无工资），生活费增加'},
+    {l:'🙅 目前没有这个打算',s:'尊重彼此的选择'},
   ]);
   if(c===0){G.kids++;G.kidYears.push(G.year+1);G.onLeave=true;
     const cost=R(30000,80000);chg(-cost);
     await log(`👶 恭喜！家里迎来新成员！花费 ${ms(-cost)}。你将休一年育儿假，下一年无工资。`,'life');
     G.mentalHealth=Math.min(100,G.mentalHealth+8);
-  }else await log('👶 暂时享受现在的生活。','info');
+  }else await log('👶 你们达成共识，目前的生活节奏刚刚好。','info');
 }
 
 async function evDivorce(){
