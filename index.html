@@ -637,7 +637,7 @@ function genEvents(y){
   // Life — ROMANCE frequency lowered significantly
   add(evRelationship,5,!G.hasPartner&&!G.married&&y>=3&&C(50));// ~50% chance to enter pool
   add(evMarriage,6,G.hasPartner&&!G.married&&(y-G.partnerYear)>=2);// require 2 years dating
-  add(evChild,4,G.married&&G.kids<2&&(y-G.marriedYear)>=3&&!G.onLeave&&C(25));// less pushy: weight 3, need 3yr married, 25% gate
+  add(evChild,3,G.married&&G.kids<2&&(y-G.marriedYear)>=3&&!G.onLeave&&C(25));// less pushy: weight 3, need 3yr married, 25% gate
   add(evPet,3,!G.hasPet&&C(8));
   add(evCar,5,!G.hasCar&&G.money>=100000);
   add(evTravel,8,G.money>30000&&C(20));
@@ -860,11 +860,50 @@ async function entreprYear(){
   G.eYears++;if(G.eYears>G.eMaxYears)G.eMaxYears=G.eYears;
   let bc=G.eBankrupt;if(ht('cautious'))bc-=8;if(ht('adventurer'))bc+=5;
   if(C(bc)){
-    const loss=Math.floor(G.money*.8);chg(-loss);G.isEntrep=false;
-    await log(`💥 创业第${G.eYears}年——${P(['资金链断裂','合伙人跑路','客户全部流失','恶性竞争','政策突变'])}！亏损 ${ms(-loss)}`,'loss');
-    G.idata=P(IND);G.industry=G.idata.n;G.salary=WP(SAL).a;
-    await log(`重新打工：${G.idata.i} ${G.industry}，年薪 ${fy(G.salary)}`,'info');
-    if(G.money<-300000){G.gameOver=true;G.ending='debt';await showEnd();}return;
+    G.isEntrep=false;
+    const reason=P(['资金链断裂','合伙人卷款跑路','客户全部流失','恶性竞争碾压','政策突变无法经营','核心技术被窃取']);
+    await log(`💥 创业第${G.eYears}年——${reason}！公司撑不下去了。`,'loss');
+
+    const c=await ask('💥 公司即将倒闭，你怎么处理？',[
+      {l:'📋 申请破产清算',s:'合法程序，资产清零但保留信用，下一年待业'},
+      {l:'🏃 变卖资产跑路',s:'保留10-30%资金，但声望大跌，可能被追债'},
+      {l:'🤝 找人接盘转让',s:'运气好能回一点本，运气差白送',risky:true},
+    ]);
+
+    if(c===0){
+      // Declare bankruptcy — lose everything, but clean slate
+      const loss=Math.max(0,G.money);if(loss>0)chg(-loss);
+      G.unempNext=true;
+      await log('📋 你走了合法的破产清算程序。资产归零，但信用记录保全。下一年需要重新找工作。','warn');
+    }else if(c===1){
+      // Run away — keep some money but reputation tanks
+      const keep=Math.floor(Math.abs(G.money)*R(10,30)/100);
+      const loss=G.money>0?(G.money-keep):0;
+      if(loss>0)chg(-loss);
+      G.reputation=Math.max(0,G.reputation-30);
+      G.unempNext=true;
+      await log(`🏃 你悄悄变卖了一些资产，保住了 ${fy(keep)}。但行业里名声已经坏了，下一年待业。`,'warn');
+      // 30% chance of being pursued for debt
+      if(C(30)){
+        const追债=R(50000,200000);chg(-追债);
+        await log(`⚠️ 债主找上门追债，被迫支付 ${ms(-追债)}。`,'loss');
+      }
+    }else{
+      // Try to sell the company — luck-based
+      if(C(35)){
+        const回收=R(50000,300000);chg(回收);
+        await log(`🤝 运气不错，找到了接盘方！回收了 ${ms(回收)}。`,'gain');
+      }else{
+        const loss=Math.floor(Math.abs(G.money)*R(30,60)/100);
+        if(G.money>0)chg(-loss);
+        await log('🤝 没人愿意接手……公司白送出去了，还倒贴了清算费用。','loss');
+      }
+      G.unempNext=true;
+      await log('📦 无论如何，你需要重新找工作了。下一年将待业。','info');
+    }
+
+    if(G.money<-300000){G.gameOver=true;G.ending='debt';await showEnd();}
+    return;
   }
   // Multipliers — harder: more weight on negative
   const mults=[
